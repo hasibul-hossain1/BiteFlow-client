@@ -1,68 +1,112 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+/* Customized LIGHT theme for your restaurant website */
+@plugin "daisyui/theme" {
+  name: "light";
+  color-scheme: "light";
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --color-base-100: #fff8f0;            /* Creamy warm background */
+  --color-base-200: #fbe9db;            /* Light peach */
+  --color-base-300: #f4d9c3;            /* Soft beige */
+  --color-base-content: #4a3c31;        /* Dark coffee brown text */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  --color-primary: #d9480f;              /* Vibrant burnt orange (like roasted pepper) */
+  --color-primary-content: #fff6e9;      /* Light creamy text on primary */
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+  --color-secondary: #40916c;            /* Fresh herb green */
+  --color-secondary-content: #e6f2e7;    /* Light greenish text */
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+  --color-accent: #f4a261;               /* Warm golden accent */
+  --color-accent-content: #3b2f2f;       /* Darker accent text */
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+  --color-neutral: #f9f7f1;              /* Light neutral for cards/background */
+  --color-neutral-content: #5c514d;      /* Muted text */
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  --color-info: #3b82f6;                 /* Clean blue info */
+  --color-info-content: #eff6ff;         /* Light text for info */
+
+  --color-success: #2a9d8f;              /* Deep teal green */
+  --color-success-content: #e0f2f1;      /* Soft greenish text */
+
+  --color-warning: #e07a5f;              /* Soft warm orange warning */
+  --color-warning-content: #3b2f2f;      /* Dark text for warning */
+
+  --color-error: #e63946;                /* Tomato red error */
+  --color-error-content: #fff0f0;        /* Light text for error */
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.75rem;
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  --border: 1px solid #d1c7ba;
+  --depth: 1;
+  --noise: 0.02;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Customized DARK theme for your restaurant website */
+@plugin "daisyui/theme" {
+  name: "dark";
+  color-scheme: "dark";
+
+  --color-base-100: #1c1b1a;            /* Dark espresso background */
+  --color-base-200: #292726;            /* Dark charcoal */
+  --color-base-300: #3a3836;            /* Medium charcoal */
+  --color-base-content: #f4ede8;        /* Warm light text */
+
+  --color-primary: #f4a261;              /* Warm golden primary */
+  --color-primary-content: #3a3836;      /* Dark text on primary */
+
+  --color-secondary: #81b29a;            /* Soft sage green */
+  --color-secondary-content: #2a2a2a;    /* Dark secondary text */
+
+  --color-accent: #e76f51;               /* Deep terra cotta accent */
+  --color-accent-content: #f4ede8;       /* Light accent text */
+
+  --color-neutral: #2e2c2b;              /* Neutral dark */
+  --color-neutral-content: #d7ccc8;      /* Light neutral text */
+
+  --color-info: #4299e1;                 /* Cool blue info */
+  --color-info-content: #d1e8ff;         /* Light info text */
+
+  --color-success: #2a9d8f;              /* Deep teal success */
+  --color-success-content: #d7f5f2;      /* Light success text */
+
+  --color-warning: #e9c46a;              /* Muted yellow warning */
+  --color-warning-content: #3a3836;      /* Dark text for warning */
+
+  --color-error: #ef476f;                /* Bright pink-red error */
+  --color-error-content: #fce8ee;        /* Light error text */
+
+  --radius-selector: 0.5rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.75rem;
+
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  --border: 1px solid #5c504d;
+  --depth: 1;
+  --noise: 0.03;
+}
+
+@theme{
+  --font-baskerville: "Libre Baskerville", "serif";
+  --font-nunito: "Nunito", "sans-serif";
+}
+
+body{
+  @apply font-nunito text-neutral-800/60;
+}
+button,a{
+  @apply font-baskerville;
+}
+
+h1,h2,h3,h4,h5,h6{
+  @apply font-baskerville text-neutral-900;
 }
