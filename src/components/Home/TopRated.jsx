@@ -1,0 +1,48 @@
+import React from "react";
+import Card from "../Common/Card";
+import { motion } from "motion/react";
+
+
+function TopRated() {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.5,
+      },
+    }),
+  };
+  const a = [1, 2, 3, 4, 5];
+  return (
+    <section className="mb-20">
+      <motion.h3
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: false, amount:1 }}
+        className="text-4xl text-center lg:mb-32 mb-10"
+      >
+        Top Rated Meals
+      </motion.h3>
+      <div className="flex justify-center items-center gap-8 flex-wrap">
+        {a.map((e, i) => (
+          <motion.div
+            key={i}
+            viewport={{ once: false }}
+            variants={cardVariants}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+          >
+            <Card />
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default TopRated;
