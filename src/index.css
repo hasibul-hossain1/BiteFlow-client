@@ -101,12 +101,12 @@
 }
 
 body{
-  @apply font-nunito text-neutral-800/60;
+  @apply font-nunito text-neutral-content;
 }
 button,a{
   @apply font-baskerville;
 }
 
 h1,h2,h3,h4,h5,h6{
-  @apply font-baskerville text-neutral-900;
+  @apply font-baskerville text-neutral-content;
 }

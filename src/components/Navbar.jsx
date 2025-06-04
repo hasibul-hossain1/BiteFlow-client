@@ -1,4 +1,5 @@
 import React from "react";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 function Navbar() {
   const navigators = (
@@ -59,9 +60,10 @@ function Navbar() {
         <div className="hidden sm:inline-block space-x-2 ">
         <a className="btn border-primary hover:btn-primary">Login</a>
         <span>or</span>
-        <button className="text-primary cursor-pointer">sign up</button>
+        <button className="text-primary btn btn-ghost">sign up</button>
         </div>
       </div>
+      <ThemeSwitcher/>
     </header>
   );
 }
