@@ -23,7 +23,7 @@ function Navbar() {
         <Link to="/login">Login</Link>
       </li>
       <li className="block sm:hidden">
-        <a>Sign Up</a>
+        <Link to='/signup'>Sign Up</Link>
       </li>
     </>
   );
@@ -82,7 +82,7 @@ function Navbar() {
                 Login
               </Link>
               <span>or</span>
-              <button className="text-primary btn btn-ghost">sign up</button>
+              <Link to='/signup' className="text-primary btn btn-ghost">sign up</Link>
             </div>
           )}
         </div>

@@ -1,12 +1,8 @@
-import { Link, useLocation, Navigate } from "react-router";
-import {
-  createUser,
-  updateProfileUser,
-} from "../contexts/FirebaseContext/UserContext";
-import toast from "react-hot-toast";
+import { Link } from "react-router";
+import { createUser, updateProfileUser } from "../../firebase/firebasePanel";
+import Swal from "sweetalert2";
 
 function SignUpPage() {
-  const location = useLocation();
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
   const handleRegister = (e) => {
@@ -15,8 +11,37 @@ function SignUpPage() {
     const photoURL = e.target.photoUrl.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-  };
 
+    if (passwordPattern.test(password)) {
+      createUser(email, password)
+        .then(() => {
+          updateProfileUser({ displayName, photoURL });
+          Swal.fire({
+            icon: "success",
+            title: "Register Successfully",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err?.message || "Something went wrong!",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Use one uppercase, one lowercase, and at least 6 characters for password",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+  };
 
   return (
     <section className="flex mt-32 bg-base-200 justify-center flex-col items-center h-[80vh]">
@@ -67,10 +92,6 @@ function SignUpPage() {
           </Link>
         </h4>
       </form>
-      <p>
-        NB: Use one uppercase, one lowercase, and at least 6 characters for
-        password
-      </p>
     </section>
   );
 }

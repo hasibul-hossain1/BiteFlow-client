@@ -23,7 +23,7 @@ function LoginPage() {
           icon: "success",
           title: "Login Successfully",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 3000,
         });
       })
       .catch((err) => {
@@ -31,6 +31,8 @@ function LoginPage() {
           icon: "error",
           title: "Oops...",
           text: err?.message || "Something went wrong!",
+          showConfirmButton: false,
+          timer: 3000,
         });
       });
   };
