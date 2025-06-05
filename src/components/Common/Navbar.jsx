@@ -15,7 +15,7 @@ function Navbar() {
         <a>Gallery</a>
       </li>
       <li className="block sm:hidden">
-        <a>Login</a>
+        <Link to='/login'>Login</Link>
       </li>
       <li className="block sm:hidden">
         <a>Sign Up</a>
@@ -58,7 +58,7 @@ function Navbar() {
         </div>
         <div className="navbar-end">
           <div className="hidden sm:inline-block space-x-2 ">
-            <a className="btn border-primary hover:btn-primary">Login</a>
+            <Link to='/login' className="btn border-primary hover:btn-primary">Login</Link>
             <span>or</span>
             <button className="text-primary btn btn-ghost">sign up</button>
           </div>

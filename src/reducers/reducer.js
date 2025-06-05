@@ -1,37 +1,58 @@
 export const initialState = {
-  loading: true,
-  error: null,
-  foods: [],
+  foods: {
+    loading: true,
+    error: null,
+    data: [],
+  },
+  user: {
+    loading: true,
+    data: null,
+  },
 };
 
+
 // Actions
-export const fetchStart="FETCH_DATA_START"
-export const fetchError="FETCH_DATA_ERROR"
-export const fetchFoodSuccess="FETCH_FOODS_SUCCESS"
+export const FETCH_FOODS_START = "FETCH_FOODS_START";
+export const FETCH_FOODS_SUCCESS = "FETCH_FOODS_SUCCESS";
+export const FETCH_FOODS_ERROR = "FETCH_FOODS_ERROR";
+
+export const FETCH_USER_START = "FETCH_USER_START";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 
 
 export function reducer(state, action) {
   switch (action.type) {
-    case fetchStart:
+    // Foods cases
+    case FETCH_FOODS_START:
       return {
         ...state,
-        loading: true,
-        error: null,
+        foods: { ...state.foods, loading: true, error: null },
       };
-    case fetchFoodSuccess:
+    case FETCH_FOODS_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: null,
-        foods: action.payload,
+        foods: { loading: false, error: null, data: action.payload },
       };
-    case fetchError:
+    case FETCH_FOODS_ERROR:
       return {
         ...state,
-        loading: false,
-        error: action.payload,
+        foods: { ...state.foods, loading: false, error: action.payload },
       };
-      default:
-        return state
+
+    // User cases
+    case FETCH_USER_START:
+      return {
+        ...state,
+        user: { ...state.user, loading: true, error: null },
+      };
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        user: { loading: false, error: null, data: action.payload },
+      };
+
+    default:
+      return state;
   }
 }
+

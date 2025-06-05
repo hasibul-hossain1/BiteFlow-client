@@ -44,16 +44,16 @@ function AllFoods() {
             <path d="m21 21-4.3-4.3"></path>
           </g>
         </svg>
-        <input type="search" onChange={(e)=>setSearchTerm(e.target.value)} value={searchTerm} className="grow" placeholder="Search" />
+        <input type="search" onChange={(e)=>setSearchTerm(e.target.value)} value={searchTerm} className="grow" placeholder="Search your favorite food" />
         <kbd className="kbd kbd-sm">⌘</kbd>
         <kbd className="kbd kbd-sm">K</kbd>
       </label>
       </div>
-      <div>
+      <div className="grid grid-cols-1 gap-8 justify-items-center mt-20 md:grid-cols-2 xl:grid-cols-3">
     {
       filterFoods.length?filterFoods.map((item)=>{
         return <Card key={item._id} foodName={item.foodName} price={item.price} category={item.foodCategory}/>
-      }):'No item Found'
+      }):<h4 className="text-3x font-bold text-center mt-20">No item found with this name</h4>
     }
       </div>
     </section>
