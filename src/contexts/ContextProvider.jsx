@@ -34,15 +34,17 @@ function ContextProvider({ children }) {
   useEffect(() => {
     dispatch({ type: FETCH_USER_START });
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      dispatch({ type: FETCH_USER_SUCCESS, payload: user || null });
+      if (user) {
+        dispatch({ type: FETCH_USER_SUCCESS, payload: {...user} });
+      }else{
+        dispatch({ type: FETCH_USER_SUCCESS, payload:null });
+      }
     });
 
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    console.log("Foods:", state.foods);
-    console.log("User:", state.user);
   }, [state]);
 
   const value = {

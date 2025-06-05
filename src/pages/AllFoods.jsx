@@ -3,12 +3,11 @@ import { motion } from "motion/react";
 import { useApp } from "../hooks/AppContext";
 import Card from '../components/Common/Card'
 import { useState } from "react";
-import filter from "daisyui/components/filter";
 
 function AllFoods() {
   const [searchTerm,setSearchTerm]=useState("")
   const {state}=useApp()
-  const filterFoods=state.foods.length&&state.foods.filter((item=>item.foodName.toLowerCase().includes(searchTerm.toLowerCase())))
+  const filterFoods=state.foods.data.length&&state.foods.data.filter((item=>item.foodName.toLowerCase().includes(searchTerm.toLowerCase())))
    
   return (
     <section className="mt-30">

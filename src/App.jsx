@@ -8,7 +8,7 @@ import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const { state } = useApp();
-  if (state.foods.error) return <ErrorPage message={state.error}/>;
+  if (state.foods.error) return <ErrorPage message={state.foods.error}/>;
   return (
     <>
       <main>

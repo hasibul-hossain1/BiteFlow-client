@@ -1,27 +1,35 @@
 import React from "react";
 import ThemeSwitcher from "../Common/ThemeSwitcher";
 import { Link } from "react-router";
+import { useApp } from "../../hooks/AppContext";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { signOUtUser } from "../../../firebase/firebasePanel";
 
 function Navbar() {
+  const { state } = useApp();
+  console.log(state.user.data);
   const navigators = (
     <>
       <li>
-        <Link to='/'>Home</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Link to='/allfoods'>All Foods</Link>
+        <Link to="/allfoods">All Foods</Link>
       </li>
       <li>
         <a>Gallery</a>
       </li>
       <li className="block sm:hidden">
-        <Link to='/login'>Login</Link>
+        <Link to="/login">Login</Link>
       </li>
       <li className="block sm:hidden">
         <a>Sign Up</a>
       </li>
     </>
   );
+  const handleLogout=()=>{
+    signOUtUser()
+  }
   return (
     <div className="mb-16">
       <header className="navbar bg-base-100/50 z-50 backdrop-blur-sm fixed top-0 md:px-6 shadow-sm">
@@ -57,11 +65,26 @@ function Navbar() {
           <ul className="menu menu-horizontal px-1">{navigators}</ul>
         </div>
         <div className="navbar-end">
-          <div className="hidden sm:inline-block space-x-2 ">
-            <Link to='/login' className="btn border-primary hover:btn-primary">Login</Link>
-            <span>or</span>
-            <button className="text-primary btn btn-ghost">sign up</button>
+          {state?.user?.data ? (<div className="flex gap-2">
+            <div className="avatar">
+              <div className="w-10 rounded-full">
+                <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+              </div>
+            </div>
+            <button onClick={handleLogout} className="flex items-center hover:btn-primary btn border-primary">Logout<RiLogoutCircleRLine /></button>
           </div>
+          ) : (
+            <div className="hidden sm:inline-block space-x-2 ">
+              <Link
+                to="/login"
+                className="btn border-primary hover:btn-primary"
+              >
+                Login
+              </Link>
+              <span>or</span>
+              <button className="text-primary btn btn-ghost">sign up</button>
+            </div>
+          )}
         </div>
         <ThemeSwitcher />
       </header>
