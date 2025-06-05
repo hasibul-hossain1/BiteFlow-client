@@ -1,8 +1,10 @@
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { createUser, updateProfileUser } from "../../firebase/firebasePanel";
 import Swal from "sweetalert2";
+import { useApp } from "../hooks/AppContext";
 
 function SignUpPage() {
+  const {state}=useApp()
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
   const handleRegister = (e) => {
@@ -42,6 +44,7 @@ function SignUpPage() {
       });
     }
   };
+if (state.user?.data)return <Navigate to={location.state || '/'}/>
 
   return (
     <section className="flex mt-32 bg-base-200 justify-center flex-col items-center h-[80vh]">

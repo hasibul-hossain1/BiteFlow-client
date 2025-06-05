@@ -4,10 +4,31 @@ import { Link } from "react-router";
 import { useApp } from "../../hooks/AppContext";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { signOUtUser } from "../../../firebase/firebasePanel";
+import Swal from "sweetalert2";
 
 function Navbar() {
   const { state } = useApp();
   console.log(state.user.data);
+  const handleLogout = () => {
+    signOUtUser()
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Logout Successfully",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err?.message || "Something went wrong!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      });
+  };
   const navigators = (
     <>
       <li>
@@ -19,17 +40,25 @@ function Navbar() {
       <li>
         <a>Gallery</a>
       </li>
-      <li className="block sm:hidden">
-        <Link to="/login">Login</Link>
-      </li>
-      <li className="block sm:hidden">
-        <Link to='/signup'>Sign Up</Link>
-      </li>
+      {state.user?.data ? (
+        <li className="block sm:hidden">
+          <button onClick={handleLogout} to="/signup">
+            Logout
+          </button>
+        </li>
+      ) : (
+        <>
+          <li className="block sm:hidden">
+            <Link to="/login">Login</Link>
+          </li>
+          <li className="block sm:hidden">
+            <Link to="/signup">Sign Up</Link>
+          </li>
+        </>
+      )}
     </>
   );
-  const handleLogout=()=>{
-    signOUtUser()
-  }
+
   return (
     <div className="mb-16">
       <header className="navbar bg-base-100/50 z-50 backdrop-blur-sm fixed top-0 md:px-6 shadow-sm">
@@ -65,14 +94,21 @@ function Navbar() {
           <ul className="menu menu-horizontal px-1">{navigators}</ul>
         </div>
         <div className="navbar-end">
-          {state?.user?.data ? (<div className="flex gap-2">
-            <div className="avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+          {state?.user?.data ? (
+            <div className="flex gap-2">
+              <div className="avatar">
+                <div className="w-10 rounded-full">
+                  <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                </div>
               </div>
+              <button
+                onClick={handleLogout}
+                className="sm:flex hidden items-center hover:btn-primary btn border-primary"
+              >
+                Logout
+                <RiLogoutCircleRLine />
+              </button>
             </div>
-            <button onClick={handleLogout} className="flex items-center hover:btn-primary btn border-primary">Logout<RiLogoutCircleRLine /></button>
-          </div>
           ) : (
             <div className="hidden sm:inline-block space-x-2 ">
               <Link
@@ -82,7 +118,9 @@ function Navbar() {
                 Login
               </Link>
               <span>or</span>
-              <Link to='/signup' className="text-primary btn btn-ghost">sign up</Link>
+              <Link to="/signup" className="text-primary btn btn-ghost">
+                sign up
+              </Link>
             </div>
           )}
         </div>
