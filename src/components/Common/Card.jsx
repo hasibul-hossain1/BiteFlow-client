@@ -1,12 +1,11 @@
 import React from "react";
 
 
-function Card() {
-   
+function Card({foodName,category,price}) {
   return (
     <div
     
-    className="card transition-transform hover:-translate-y-3 duration-1000 bg-base-100 w-96 shadow-sm">
+    className="card transition-transform hover:-translate-y-3 duration-1000 bg-base-100 max-w-80 shadow-sm">
       <figure>
         <img
           src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -15,13 +14,17 @@ function Card() {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">Card Title</h2>
+        <h2 className="card-title">{foodName}</h2>
+        <div>
         <p>
-          A card component has a figure, a body part, and inside body there are
-          title and actions parts
+          <span className="font-bold">Price: </span>{price}$
         </p>
+        <p>
+          <span className="font-bold">Category: </span>{category || "Italy"}
+        </p>
+        </div>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+          <button className="btn btn-primary">Details</button>
         </div>
       </div>
     </div>

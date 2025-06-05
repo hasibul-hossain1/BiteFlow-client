@@ -1,14 +1,15 @@
 import React from "react";
 import ThemeSwitcher from "../Common/ThemeSwitcher";
+import { Link } from "react-router";
 
 function Navbar() {
   const navigators = (
     <>
       <li>
-        <a>Home</a>
+        <Link to='/'>Home</Link>
       </li>
       <li>
-        <a>All Foods</a>
+        <Link to='/allfoods'>All Foods</Link>
       </li>
       <li>
         <a>Gallery</a>
