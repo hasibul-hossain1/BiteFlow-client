@@ -1,16 +1,16 @@
 import React from "react";
 import { useApp } from "../hooks/AppContext";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 const FoodDetails = () => {
   const {state}=useApp()
   const {id}=useParams()
   const food=state.foods?.data.find((item)=>item._id===id)
 
-  const handlePurchase = () => {
-    alert(`Purchased "${food.foodName}" for $${food.price}`);
-    // In real usage, this would be a POST request to your backend
-  };
+  // const handlePurchase = () => {
+  //   alert(`Purchased "${food.foodName}" for $${food.price}`);
+  //   // In real usage, this would be a POST request to your backend
+  // };
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-10">
@@ -35,9 +35,9 @@ const FoodDetails = () => {
           </div>
         </div>
 
-        <button onClick={handlePurchase} className="btn btn-primary w-full">
+        <Link to={`/purchase/${food._id}`} className="btn btn-primary w-full">
           Purchase
-        </button>
+        </Link>
       </div>
     </section>
   );

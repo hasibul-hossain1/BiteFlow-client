@@ -1,19 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useApp } from "../hooks/AppContext";
+import { useParams } from "react-router";
+import { api } from "../lib/api";
+import Swal from "sweetalert2";
 
 const FoodPurchase = () => {
   const { state } = useApp();
+  const { id } = useParams();
+  const food = state.foods?.data.find((item) => item._id === id);
   const user = state.user;
-  console.log(user);
-
-  // Dummy food for example. In a real app, fetch this based on route param.
-  const food = {
-    _id: "6840dad63033edc9e7204a8b",
-    foodName: "Tom Yum Soup",
-    foodImage: "https://example.com/images/tom-yum-soup.jpg",
-    price: 7.75,
-    quantity: 18,
-  };
 
   const [quantity, setQuantity] = useState(1);
 
@@ -30,11 +25,36 @@ const FoodPurchase = () => {
       buyingDate: Date.now(),
     };
 
-    console.log("Sending this to backend:", purchaseData);
-
-    // TODO: Replace this with your API call
-    // api.post("/purchase", purchaseData).then().catch()
-    alert("Purchase recorded successfully!");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to place this order?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, place it!",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          api
+            .post("/purchase", purchaseData)
+            .then(() => {
+              Swal.fire({
+                title: "Success!",
+                text: "Your order has been placed.",
+                icon: "success",
+              });
+            })
+            .catch((error) => {
+              Swal.fire({
+                title: "Oops!",
+                text: error?.message || "Something went wrong.",
+                icon: "error",
+              });
+            });
+        }
+      })
+      .catch();
   };
 
   return (
@@ -102,7 +122,7 @@ const FoodPurchase = () => {
 
           {/* Submit */}
           <button className="btn btn-primary w-full" type="submit">
-            Purchase
+            Confirm Purchase
           </button>
         </form>
       </div>
