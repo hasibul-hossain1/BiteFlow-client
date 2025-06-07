@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router";
 
 
-function Card({foodName,category,price}) {
+function Card({foodName,category,price,quantity,_id}) {
   return (
     <div
     
@@ -20,11 +21,14 @@ function Card({foodName,category,price}) {
           <span className="font-bold">Price: </span>{price}$
         </p>
         <p>
-          <span className="font-bold">Category: </span>{category || "Italy"}
+          <span className="font-bold">Category: </span>{category}
+        </p>
+        <p>
+          <span className="font-bold">Quantity: </span>{quantity}
         </p>
         </div>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Details</button>
+          <Link to={`/details/${_id}`} className="btn btn-primary">Details</Link>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 function ThemeSwitcher() {
   return (
-<label className="swap swap-rotate text-gray-500">
+<label className="swap sm:ml-2 swap-rotate text-gray-500">
   {/* this hidden checkbox controls the state */}
   <input type="checkbox" className="theme-controller" value="dark" />
 

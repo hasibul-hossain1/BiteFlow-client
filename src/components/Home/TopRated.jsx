@@ -1,9 +1,12 @@
 import React from "react";
 import Card from "../Common/Card";
 import { motion } from "motion/react";
+import { useApp } from "../../hooks/AppContext";
 
 
 function TopRated() {
+  const {state}=useApp()
+  console.log(state.foods.data)
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: (i) => ({
@@ -15,7 +18,7 @@ function TopRated() {
       },
     }),
   };
-  const a = [1, 2, 3, 4, 5];
+  
   return (
     <section className="mb-20">
       <motion.h3
@@ -28,7 +31,7 @@ function TopRated() {
         Top Rated Meals
       </motion.h3>
       <div className="flex justify-center items-center gap-8 flex-wrap">
-        {a.map((e, i) => (
+        {state.foods?.data?.map((e, i) => (
           <motion.div
             key={i}
             viewport={{ once: false }}
@@ -37,7 +40,7 @@ function TopRated() {
             initial="hidden"
             whileInView="visible"
           >
-            <Card />
+            <Card category={e.foodCategory} _id={e._id} foodName={e.foodName} price={e.price} quantity={e.quantity} key={e._id}/>
           </motion.div>
         ))}
       </div>

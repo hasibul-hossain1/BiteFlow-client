@@ -51,7 +51,7 @@ function AllFoods() {
       <div className="grid grid-cols-1 gap-8 justify-items-center mt-20 md:grid-cols-2 xl:grid-cols-3">
     {
       filterFoods.length?filterFoods.map((item)=>{
-        return <Card key={item._id} foodName={item.foodName} price={item.price} category={item.foodCategory}/>
+        return <Card key={item._id} _id={item._id} quantity={item.quantity} foodName={item.foodName} price={item.price} category={item.foodCategory}/>
       }):<h4 className="text-3x font-bold text-center mt-20">No item found with this name</h4>
     }
       </div>
