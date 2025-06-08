@@ -13,8 +13,23 @@ function LoginPage() {
     const password = e.target.password.value;
     signInUser(email, password)
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Login Successfully",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err?.message || "Something went wrong!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      });
   };
 
   const handleGoogleLogin = () => {

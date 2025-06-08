@@ -6,7 +6,6 @@ import { useApp } from "../../hooks/AppContext";
 
 function TopRated() {
   const {state}=useApp()
-  console.log(state.foods.data)
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: (i) => ({

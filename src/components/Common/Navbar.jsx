@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 
 function Navbar() {
   const { state } = useApp();
-  console.log(state.user.data);
   const handleLogout = () => {
     signOUtUser()
       .then(() => {
@@ -114,9 +113,9 @@ function Navbar() {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <a>
+                    <Link to='/myfoods'>
                       My Foods
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a>Add Foods</a>

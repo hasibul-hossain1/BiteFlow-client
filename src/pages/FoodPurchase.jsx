@@ -71,7 +71,7 @@ const FoodPurchase = () => {
               type="text"
               value={food.foodName}
               readOnly
-              className="input input-bordered w-full"
+              className="input not-last-of-type:input-bordered w-full"
             />
           </div>
 
@@ -95,7 +95,7 @@ const FoodPurchase = () => {
               min={1}
               max={food.quantity}
               required
-              className="input input-bordered w-full"
+              className="input outline outline-secondary input-bordered w-full"
             />
           </div>
 
