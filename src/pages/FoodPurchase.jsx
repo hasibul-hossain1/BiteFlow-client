@@ -63,6 +63,7 @@ const FoodPurchase = () => {
         <h2 className="text-3xl font-bold text-center">
           You're One Step Away From Deliciousness!
         </h2>
+        <div className="divider"></div>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Food Info */}
           <div>

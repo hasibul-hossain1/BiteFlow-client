@@ -1,8 +1,12 @@
+import Swal from "sweetalert2";
 import { useApp } from "../hooks/AppContext";
 import { api } from "../lib/api";
+import { ADD_NEW_FOOD } from "../reducers/reducer";
+import { useNavigate } from "react-router";
 
 const AddFood = () => {
-  const { state } = useApp();
+  const { state, dispatch } = useApp();
+  const navigate=useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,23 +17,53 @@ const AddFood = () => {
       ...formData,
       quantity: +formData.quantity,
       price: +formData.price,
+      purchaseCount: 0,
       addedBy: {
         name: state?.user?.data?.displayName,
         email: state?.user?.data?.email,
       },
     };
-    api
-      .post("/newfood", newFood)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to add this item?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, add this!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api
+          .post("/newfood", newFood)
+          .then((res) => {
+            if (res.data?.insertedId) {
+              newFood._id = res.data?.insertedId;
+              dispatch({ type: ADD_NEW_FOOD, payload: newFood });
+            }
+            navigate('/myfoods')
+            Swal.fire({
+              title: "item added!",
+              text: "Your food item has been added successfully.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: err?.message || "Something went wrong!",
+            });
+          });
+      }
+    });
   };
 
   return (
     <section className="max-w-xl mx-auto px-4 py-10">
       <div className="bg-base-100 shadow-xl rounded-xl p-6 space-y-6">
-        <h2 className="text-3xl font-bold text-center">
-          You're One Step Away From Deliciousness!
-        </h2>
+        <h2 className="text-3xl font-bold text-center">Create Food Item</h2>
+        <div className="divider"></div>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Food Info */}
           <div>
@@ -67,7 +101,9 @@ const AddFood = () => {
             <label className="label font-semibold">Price ($)</label>
             <input
               type="number"
+              step="any"
               name="price"
+              defaultValue={1}
               className="input input-bordered outline outline-secondary w-full"
               required
               placeholder="Food Price by Dollar"
@@ -82,10 +118,30 @@ const AddFood = () => {
               name="quantity"
               min={1}
               max={250}
+              defaultValue={1}
               required
               className="input outline outline-secondary input-bordered w-full"
               placeholder="Quantity"
             />
+          </div>
+          <div>
+            <label className="label font-semibold">Food Origin</label>
+            <input
+              type="text"
+              name="foodOrigin"
+              required
+              className="input outline outline-secondary input-bordered w-full"
+              placeholder="Food Origin"
+            />
+          </div>
+
+          <div>
+            <label className="label font-semibold">Food Description</label>
+            <textarea
+              className="textarea outline outline-secondary w-full"
+              placeholder="Food Description"
+              name="description"
+            ></textarea>
           </div>
 
           {/* Submit */}
