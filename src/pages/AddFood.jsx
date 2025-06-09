@@ -146,7 +146,7 @@ const AddFood = () => {
 
           {/* Submit */}
           <button className="btn btn-primary w-full" type="submit">
-            Confirm Purchase
+            Add Food
           </button>
         </form>
       </div>
