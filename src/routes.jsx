@@ -9,6 +9,7 @@ import FoodPurchase from "./pages/FoodPurchase";
 import MyFoods from "./pages/MyFoods";
 import AddFood from "./pages/AddFood";
 import MyOrders from "./pages/MyOrders";
+import UpdateFood from "./pages/UpdateFood";
 
 export const router = createBrowserRouter(
   [
@@ -51,6 +52,10 @@ export const router = createBrowserRouter(
         {
           path:'/myorders',
           Component:MyOrders
+        },
+        {
+          path:'/myfoods/update',
+          Component:UpdateFood
         }
       ],
     },

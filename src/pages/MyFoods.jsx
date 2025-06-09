@@ -7,7 +7,7 @@ import { motion } from "motion/react";
 import Loader from "../components/Common/Loader";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete, MdOutlineOpenInBrowser } from "react-icons/md";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 function MyFoods() {
@@ -21,10 +21,18 @@ function MyFoods() {
   const userEmail = state.user?.data?.email;
 
   useEffect(() => {
+    setMyFoods(prev=>({...prev,loading:true}))
     api.get(`/myfoods?email=${userEmail}`).then((res) => {
-      setMyFoods({ ...myFoods, loading: false, data: res.data });
-    });
-  }, [userEmail,myFoods]);
+      setMyFoods(prev=>({ ...prev, loading: false, data: res.data }));
+    }).catch(err=>{
+      setMyFoods(prev=>({
+        ...prev,error:err.message
+      }))
+    })
+  }, [userEmail]);
+  if (myFoods.error) {
+    return <ErrorPage message={myFoods.error} />;
+  }
   if (myFoods.loading) {
     return <Loader />;
   }
@@ -52,8 +60,10 @@ function MyFoods() {
           .delete(`/myfoods/${id}`)
           .then((res) => {
             if (res?.data?.deletedCount) {
-              const removeItem = myFoods?.data.filter((item) => item._id !== id);
-              setMyFoods({...myFoods,data:removeItem});
+              const removeItem = myFoods?.data.filter(
+                (item) => item._id !== id
+              );
+              setMyFoods({ ...myFoods, data: removeItem });
             }
             Swal.fire({
               title: "Deleted!",
@@ -119,9 +129,9 @@ function MyFoods() {
                     >
                       <MdOutlineOpenInBrowser size={20} />
                     </button>
-                    <button className="btn btn-ghost btn-sm">
+                    <Link state={item} to='/myfoods/update' className="btn btn-ghost btn-sm">
                       <FaEdit size={20} />
-                    </button>
+                    </Link>
                     <button
                       onClick={() => handleDelete(item._id)}
                       className="btn btn-ghost btn-sm"

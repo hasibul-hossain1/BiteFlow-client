@@ -8,12 +8,13 @@ import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   const { state } = useApp();
-  if (state.foods.error) return <ErrorPage message={state.foods.error}/>;
+  if (state.foods.error) return <ErrorPage message={state.foods.error} />;
+  if (state.foods.loading || state.user.loading) return <Loader />;
   return (
     <>
       <main>
         <Navbar />
-        {state.foods.loading || state.user.loading ? <Loader /> : <Outlet />}
+        <Outlet />
       </main>
       <Footer />
     </>

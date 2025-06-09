@@ -8,7 +8,7 @@ import Loader from "../components/Common/Loader";
 import { MdDelete } from "react-icons/md";
 import moment from "moment/moment";
 import Swal from "sweetalert2";
-
+import ErrorPage from './ErrorPage'
 function MyOrders() {
   const { state } = useApp();
   const [myOrders, setMyOrders] = useState({
@@ -19,15 +19,20 @@ function MyOrders() {
   const userEmail = state.user?.data?.email;
 
   useEffect(() => {
+    setMyOrders(prev=>({...prev,loading:true}))
     api.get(`/myorders?email=${userEmail}`).then((res) => {
-      setMyOrders((prev) => ({
+      setMyOrders(prev=>({
         ...prev,
         loading: false,
         data: res.data,
       }));
-    });
+    }).catch(err=>{
+      setMyOrders(prev=>({...prev,loading:false,error:err.message}))
+    })
   }, [userEmail]);
-
+if (myOrders.error) {
+  return <ErrorPage message={myOrders.error}/>
+}
   if (myOrders.loading) {
     return <Loader />;
   }
