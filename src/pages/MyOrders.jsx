@@ -5,15 +5,13 @@ import { api } from "../lib/api";
 import { useApp } from "../hooks/AppContext";
 import { motion } from "motion/react";
 import Loader from "../components/Common/Loader";
-import { FaEdit } from "react-icons/fa";
-import { MdDelete, MdOutlineOpenInBrowser } from "react-icons/md";
-import { useNavigate } from "react-router";
+import { MdDelete } from "react-icons/md";
+import moment from "moment/moment";
 import Swal from "sweetalert2";
 
-function MyFoods() {
-  const navigate = useNavigate();
+function MyOrders() {
   const { state } = useApp();
-  const [myFoods, setMyFoods] = useState({
+  const [myOrders, setMyOrders] = useState({
     loading: true,
     error: null,
     data: [],
@@ -21,18 +19,23 @@ function MyFoods() {
   const userEmail = state.user?.data?.email;
 
   useEffect(() => {
-    api.get(`/myfoods?email=${userEmail}`).then((res) => {
-      setMyFoods({ ...myFoods, loading: false, data: res.data });
+    api.get(`/myorders?email=${userEmail}`).then((res) => {
+      setMyOrders((prev) => ({
+        ...prev,
+        loading: false,
+        data: res.data,
+      }));
     });
-  }, [userEmail,myFoods]);
-  if (myFoods.loading) {
+  }, [userEmail]);
+
+  if (myOrders.loading) {
     return <Loader />;
   }
-  if (!myFoods?.data?.length) {
+  if (!myOrders.data.length) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
-        <h2 className="text-3xl">
-          You don't added any food yet. please add first...
+        <h2 className="text-3xl text-center">
+          You don't purchased any food yet...
         </h2>
       </div>
     );
@@ -40,7 +43,7 @@ function MyFoods() {
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You want to delete this!",
+      text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -49,11 +52,13 @@ function MyFoods() {
     }).then((result) => {
       if (result.isConfirmed) {
         api
-          .delete(`/myfoods/${id}`)
+          .delete(`/myorders/${id}`)
           .then((res) => {
-            if (res?.data?.deletedCount) {
-              const removeItem = myFoods?.data.filter((item) => item._id !== id);
-              setMyFoods({...myFoods,data:removeItem});
+            if (res.data.deletedCount) {
+              const removeItem = myOrders?.data.filter(
+                (item) => item._id !== id
+              );
+              setMyOrders({ ...myOrders, data: removeItem });
             }
             Swal.fire({
               title: "Deleted!",
@@ -71,6 +76,7 @@ function MyFoods() {
       }
     });
   };
+
   return (
     <section className="pt-10">
       <motion.h3
@@ -80,7 +86,7 @@ function MyFoods() {
         viewport={{ once: true }}
         className="text-3xl md:text-4xl text-center font-bold mb-6"
       >
-        Your Added Foods
+        Your Purchased Foods
       </motion.h3>
       <div className="divider"></div>
       <div className="overflow-x-auto max-w-5xl mx-auto">
@@ -91,11 +97,13 @@ function MyFoods() {
               <th>Food Image</th>
               <th>Food Name</th>
               <th>Price</th>
-              <th className="px-15">Actions</th>
+              <th>Food Owner</th>
+              <th>Purchase Time</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {myFoods?.data?.map((item) => {
+            {myOrders?.data?.map((item) => {
               return (
                 <tr key={item._id}>
                   <td>
@@ -112,19 +120,17 @@ function MyFoods() {
                   </td>
                   <td>{item.foodName}</td>
                   <td>{item.price}$</td>
-                  <th className="text-nowrap">
-                    <button
-                      onClick={() => navigate(`/details/${item._id}`)}
-                      className="btn btn-ghost btn-sm"
-                    >
-                      <MdOutlineOpenInBrowser size={20} />
-                    </button>
-                    <button className="btn btn-ghost btn-sm">
-                      <FaEdit size={20} />
-                    </button>
+                  <td>
+                    {item.buyerName}
+                    <br />({item.buyerEmail})
+                  </td>
+                  <td>
+                    {moment(item.buyingDate).format("Do MMMM YYYY, h:mm a")}
+                  </td>
+                  <th>
                     <button
                       onClick={() => handleDelete(item._id)}
-                      className="btn btn-ghost btn-sm"
+                      className="btn btn-ghost btn-xs"
                     >
                       <MdDelete size={20} />
                     </button>
@@ -139,4 +145,4 @@ function MyFoods() {
   );
 }
 
-export default MyFoods;
+export default MyOrders;

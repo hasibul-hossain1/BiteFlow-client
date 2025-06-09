@@ -1,4 +1,3 @@
-import React from "react";
 import { FaExclamationTriangle } from "react-icons/fa";
 
 function ErrorPage({ message = "Something went wrong!" }) {
@@ -7,6 +6,7 @@ function ErrorPage({ message = "Something went wrong!" }) {
       <FaExclamationTriangle size={48} className="mb-4" />
       <h1 className="text-4xl font-bold mb-2">Oops!</h1>
       <p className="text-lg mb-4">{message}</p>
+      <a className="btn btn-primary" href="/">Refresh</a>
     </div>
   );
 }
