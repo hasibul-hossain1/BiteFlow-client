@@ -1,12 +1,13 @@
 import Swal from "sweetalert2";
-import { useApp } from "../hooks/AppContext";
+import { useDispatch, useSelector } from "../hooks/AppContext";
 import { api } from "../lib/api";
 import { ADD_NEW_FOOD } from "../reducers/reducer";
 import { useNavigate } from "react-router";
 
 const AddFood = () => {
-  const { state, dispatch } = useApp();
-  const navigate=useNavigate()
+  const user = useSelector((state) => state.user);
+  const dispatch=useDispatch()
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,8 +20,8 @@ const AddFood = () => {
       price: +formData.price,
       purchaseCount: 0,
       addedBy: {
-        name: state?.user?.data?.displayName,
-        email: state?.user?.data?.email,
+        name: user?.data?.displayName,
+        email: user?.data?.email,
       },
     };
 
@@ -41,7 +42,7 @@ const AddFood = () => {
               newFood._id = res.data?.insertedId;
               dispatch({ type: ADD_NEW_FOOD, payload: newFood });
             }
-            navigate('/myfoods')
+            navigate("/myfoods");
             Swal.fire({
               title: "item added!",
               text: "Your food item has been added successfully.",

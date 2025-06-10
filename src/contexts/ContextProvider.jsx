@@ -13,9 +13,9 @@ import { api } from "../lib/api";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 
+
 function ContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   useEffect(() => {
     dispatch({ type: FETCH_FOODS_START });
     api
@@ -54,5 +54,6 @@ function ContextProvider({ children }) {
 
   return <AppContext value={value}>{children}</AppContext>;
 }
+
 
 export default ContextProvider;

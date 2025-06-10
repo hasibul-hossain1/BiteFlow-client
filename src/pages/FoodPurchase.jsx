@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useApp } from "../hooks/AppContext";
+import {  useSelector } from "../hooks/AppContext";
 import { useNavigate, useParams } from "react-router";
 import { api } from "../lib/api";
 import Swal from "sweetalert2";
 
 const FoodPurchase = () => {
-  const navigate=useNavigate()
-  const { state } = useApp();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const foods = useSelector((state) => state.foods);
   const { id } = useParams();
-  const food = state.foods?.data.find((item) => item._id === id);
-  const user = state.user;
+  const food = foods?.data.find((item) => item._id === id);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -45,7 +45,7 @@ const FoodPurchase = () => {
                 text: "Your order has been placed.",
                 icon: "success",
               });
-              navigate('/myorders')
+              navigate("/myorders");
             })
             .catch((error) => {
               Swal.fire({

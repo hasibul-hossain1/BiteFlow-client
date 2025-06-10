@@ -1,11 +1,11 @@
 import { Link, Navigate, useLocation } from "react-router";
 import { createUserWithGoogle, signInUser } from "../../firebase/firebasePanel";
 import Swal from "sweetalert2";
-import { useApp } from "../hooks/AppContext";
+import { useSelector } from "../hooks/AppContext";
 
 function LoginPage() {
   const location = useLocation();
-  const {state} = useApp()
+  const user = useSelector((state) => state.user);
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ function LoginPage() {
         });
       });
   };
-if (state.user?.data)return <Navigate to={location.state || '/'}/>
+if (user?.data)return <Navigate to={location.state || '/'}/>
   return (
     <section className="flex bg-base-300 mt-32 justify-center flex-col items-center h-[80vh]">
       <form onSubmit={handleSignin} className="fieldset rounded-box w-xs p-4">

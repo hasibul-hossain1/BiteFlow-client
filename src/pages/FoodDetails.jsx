@@ -1,11 +1,11 @@
 import React from "react";
-import { useApp } from "../hooks/AppContext";
+import { useSelector } from "../hooks/AppContext";
 import { Link, useParams } from "react-router";
 
 const FoodDetails = () => {
-  const {state}=useApp()
+  const foods = useSelector((state) => state.foods);
   const {id}=useParams()
-  const food=state.foods?.data.find((item)=>item._id===id)
+  const food=foods?.data.find((item)=>item._id===id)
 
   // const handlePurchase = () => {
   //   alert(`Purchased "${food.foodName}" for $${food.price}`);

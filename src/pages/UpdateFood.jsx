@@ -1,13 +1,15 @@
 import Swal from "sweetalert2";
-import { useApp } from "../hooks/AppContext";
+import { useDispatch, useSelector } from "../hooks/AppContext";
 import { api } from "../lib/api";
 import { UPDATE_FOOD } from "../reducers/reducer";
 import { useLocation, useNavigate } from "react-router";
 
 const UpdateFood = () => {
   const location = useLocation();
-  const { state, dispatch } = useApp();
-  console.log(state.foods.data);
+    const user = useSelector((state) => state.user);
+  const foods = useSelector((state) => state.foods);
+  const dispatch=useDispatch()
+  console.log(foods.data);
   const navigate = useNavigate();
   const {
     _id,
@@ -32,8 +34,8 @@ const UpdateFood = () => {
       price: +formData.price,
       purchaseCount,
       addedBy: {
-        name: state?.user?.data?.displayName,
-        email: state?.user?.data?.email,
+        name: user?.data?.displayName,
+        email: user?.data?.email,
       },
     };
 
@@ -51,7 +53,7 @@ const UpdateFood = () => {
           .put(`/updatefood/${_id}`, updatedFood)
           .then(() => {
             updatedFood._id = _id;
-            const filterFoods = state?.foods?.data.filter(
+            const filterFoods =foods?.data.filter(
               (item) => item._id !== _id
             );
             dispatch({

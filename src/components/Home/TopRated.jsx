@@ -1,11 +1,11 @@
 import React from "react";
 import Card from "../Common/Card";
 import { motion } from "motion/react";
-import { useApp } from "../../hooks/AppContext";
+import { useSelector } from "../../hooks/AppContext";
 
 
 function TopRated() {
-  const {state}=useApp()
+  const foods=useSelector(state=>state.foods)
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: (i) => ({
@@ -30,7 +30,7 @@ function TopRated() {
         Top Rated Meals
       </motion.h3>
       <div className="flex justify-center items-center gap-8 flex-wrap">
-        {state.foods?.data?.map((e, i) => (
+        {foods?.data?.map((e, i) => (
           <motion.div
             key={i}
             viewport={{ once: false }}

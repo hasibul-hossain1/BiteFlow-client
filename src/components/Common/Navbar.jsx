@@ -1,13 +1,13 @@
 import React from "react";
 import ThemeSwitcher from "../Common/ThemeSwitcher";
 import { Link } from "react-router";
-import { useApp } from "../../hooks/AppContext";
+import { useSelector } from "../../hooks/AppContext";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { signOUtUser } from "../../../firebase/firebasePanel";
 import Swal from "sweetalert2";
 
 function Navbar() {
-  const { state } = useApp();
+  const user=useSelector(state=>state.user)
   const handleLogout = () => {
     signOUtUser()
       .then(() => {
@@ -39,7 +39,7 @@ function Navbar() {
       <li>
         <a>Gallery</a>
       </li>
-      {state.user?.data ? (
+      {user?.data ? (
         <li className="block sm:hidden">
           <button onClick={handleLogout} to="/signup">
             Logout
@@ -93,7 +93,7 @@ function Navbar() {
           <ul className="menu menu-horizontal px-1">{navigators}</ul>
         </div>
         <div className="navbar-end">
-          {state?.user?.data ? (
+          {user?.data ? (
             <div className="flex gap-2">
               <div className="dropdown dropdown-end">
                 <div
@@ -104,7 +104,7 @@ function Navbar() {
                   <div className="w-14 rounded-full">
                     <img
                       alt="Tailwind CSS Navbar component"
-                      src={state.user?.data?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                      src={user?.data?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
                     />
                   </div>
                 </div>

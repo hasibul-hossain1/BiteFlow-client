@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { api } from "../lib/api";
-import { useApp } from "../hooks/AppContext";
+import {  useSelector } from "../hooks/AppContext";
 import { motion } from "motion/react";
 import Loader from "../components/Common/Loader";
 import { MdDelete } from "react-icons/md";
@@ -10,13 +10,13 @@ import moment from "moment/moment";
 import Swal from "sweetalert2";
 import ErrorPage from './ErrorPage'
 function MyOrders() {
-  const { state } = useApp();
+    const user = useSelector((state) => state.user);
   const [myOrders, setMyOrders] = useState({
     loading: true,
     error: null,
     data: [],
   });
-  const userEmail = state.user?.data?.email;
+  const userEmail = user?.data?.email;
 
   useEffect(() => {
     setMyOrders(prev=>({...prev,loading:true}))

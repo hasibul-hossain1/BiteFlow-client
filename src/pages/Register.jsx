@@ -1,10 +1,10 @@
 import { Link, Navigate } from "react-router";
 import { createUser, updateProfileUser } from "../../firebase/firebasePanel";
 import Swal from "sweetalert2";
-import { useApp } from "../hooks/AppContext";
+import { useSelector } from "../hooks/AppContext";
 
 function SignUpPage() {
-  const {state}=useApp()
+  const user = useSelector((state) => state.user);
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
   const handleRegister = (e) => {
@@ -44,7 +44,7 @@ function SignUpPage() {
       });
     }
   };
-if (state.user?.data)return <Navigate to={location.state || '/'}/>
+  if (user?.data) return <Navigate to={location.state || "/"} />;
 
   return (
     <section className="flex mt-32 bg-base-200 justify-center flex-col items-center h-[80vh]">
