@@ -9,9 +9,22 @@ function AllFoods() {
   const foods = useSelector((state) => state.foods);
   const filterFoods =
     foods.data.length &&
-    [...foods.data].reverse().filter((item) =>
-      item.foodName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    [...foods.data]
+      .reverse()
+      .filter((item) =>
+        item.foodName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.2,
+      },
+    }),
+  };
 
   return (
     <section className="mt-30">
@@ -60,17 +73,26 @@ function AllFoods() {
       </div>
       <div className="grid grid-cols-1 gap-8 justify-items-center mt-20 md:grid-cols-2 xl:grid-cols-3">
         {filterFoods.length ? (
-          filterFoods.map((item) => {
+          filterFoods.map((item, i) => {
             return (
-              <Card
-                key={item._id}
-                _id={item._id}
-                quantity={item.quantity}
-                foodName={item.foodName}
-                price={item.price}
-                category={item.foodCategory}
-                foodImage={item.foodImage}
-              />
+              <motion.div
+                key={i}
+                viewport={{ once: false }}
+                variants={cardVariants}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+              >
+                <Card
+                  key={item._id}
+                  _id={item._id}
+                  quantity={item.quantity}
+                  foodName={item.foodName}
+                  price={item.price}
+                  category={item.foodCategory}
+                  foodImage={item.foodImage}
+                />
+              </motion.div>
             );
           })
         ) : (

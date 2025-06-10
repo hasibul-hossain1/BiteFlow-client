@@ -14,6 +14,7 @@ import img6 from "../../assets/hero6.jpg";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Link } from "react-router";
 
 export default function Carousel() {
   const images = [img1, img2, img3, img4, img5, img6];
@@ -41,9 +42,9 @@ export default function Carousel() {
               alt=""
             />
             {index === 0 && (
-              <button className="btn btn-primary absolute top-[70%] left-[40%] hidden md:block z-10">
+              <Link to='/allfoods' className="btn btn-primary absolute top-[70%] left-[40%] hidden md:flex z-10">
                 Explore More
-              </button>
+              </Link>
             )}
           </SwiperSlide>
         ))}
