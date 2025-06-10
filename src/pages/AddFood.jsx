@@ -80,7 +80,7 @@ const AddFood = () => {
           <div>
             <label className="label font-semibold">Food Image</label>
             <input
-              type="text"
+              type="url"
               name="foodImage"
               className="input outline outline-secondary input-bordered w-full"
               required

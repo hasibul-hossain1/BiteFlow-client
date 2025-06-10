@@ -48,12 +48,12 @@ if (myOrders.error) {
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You want to cancel this Order!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
         api
@@ -66,8 +66,8 @@ if (myOrders.error) {
               setMyOrders({ ...myOrders, data: removeItem });
             }
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Canceled!",
+              text: "Your Order has been deleted.",
               icon: "success",
             });
           })

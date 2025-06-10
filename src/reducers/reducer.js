@@ -10,17 +10,16 @@ export const initialState = {
   },
 };
 
-
 // Actions
 export const FETCH_FOODS_START = "FETCH_FOODS_START";
 export const FETCH_FOODS_SUCCESS = "FETCH_FOODS_SUCCESS";
 export const FETCH_FOODS_ERROR = "FETCH_FOODS_ERROR";
-export const ADD_NEW_FOOD="ADD_NEW_FOOD"
-export const UPDATE_FOOD="UPDATE_FOOD"
+export const ADD_NEW_FOOD = "ADD_NEW_FOOD";
+export const UPDATE_FOOD = "UPDATE_FOOD";
+export const DELETE_FOOD = "DELETE_FOOD";
 
 export const FETCH_USER_START = "FETCH_USER_START";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
-
 
 export function reducer(state, action) {
   switch (action.type) {
@@ -40,16 +39,21 @@ export function reducer(state, action) {
         ...state,
         foods: { ...state.foods, loading: false, error: action.payload },
       };
-      case ADD_NEW_FOOD:
-        return {
-          ...state,
-          foods:{...state.foods,data:[...state.foods.data,action.payload]}
-        }
-        case UPDATE_FOOD:
-          return {
-            ...state,
-            foods:{...state.foods,data:action.payload}
-          }
+    case ADD_NEW_FOOD:
+      return {
+        ...state,
+        foods: { ...state.foods, data: [...state.foods.data, action.payload] },
+      };
+    case UPDATE_FOOD:
+      return {
+        ...state,
+        foods: { ...state.foods, data: action.payload },
+      };
+    case DELETE_FOOD:
+      return {
+        ...state,
+        foods: { ...state.foods, data: action.payload },
+      };
 
     // User cases
     case FETCH_USER_START:
@@ -67,4 +71,3 @@ export function reducer(state, action) {
       return state;
   }
 }
-

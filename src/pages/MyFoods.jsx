@@ -8,11 +8,14 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete, MdOutlineOpenInBrowser } from "react-icons/md";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import {  useSelector } from "../hooks/AppContext";
+import { useDispatch, useSelector } from "../hooks/AppContext";
+import { DELETE_FOOD } from "../reducers/reducer";
 
 function MyFoods() {
   const navigate = useNavigate();
-    const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
+  const allFoods = useSelector((state) => state.foods.data);
+  const dispatch = useDispatch();
   const [myFoods, setMyFoods] = useState({
     loading: true,
     error: null,
@@ -21,14 +24,18 @@ function MyFoods() {
   const userEmail = user?.data?.email;
 
   useEffect(() => {
-    setMyFoods(prev=>({...prev,loading:true}))
-    api.get(`/myfoods?email=${userEmail}`).then((res) => {
-      setMyFoods(prev=>({ ...prev, loading: false, data: res.data }));
-    }).catch(err=>{
-      setMyFoods(prev=>({
-        ...prev,error:err.message
-      }))
-    })
+    setMyFoods((prev) => ({ ...prev, loading: true }));
+    api
+      .get(`/myfoods?email=${userEmail}`)
+      .then((res) => {
+        setMyFoods((prev) => ({ ...prev, loading: false, data: res.data }));
+      })
+      .catch((err) => {
+        setMyFoods((prev) => ({
+          ...prev,
+          error: err.message,
+        }));
+      });
   }, [userEmail]);
   if (myFoods.error) {
     return <ErrorPage message={myFoods.error} />;
@@ -48,7 +55,7 @@ function MyFoods() {
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You want to delete this!",
+      text: "You want to delete this food!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -64,10 +71,12 @@ function MyFoods() {
                 (item) => item._id !== id
               );
               setMyFoods({ ...myFoods, data: removeItem });
+              const filteredFood = allFoods.filter((item) => item._id !== id);
+              dispatch({ type: DELETE_FOOD, payload: filteredFood });
             }
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your food item has been deleted.",
               icon: "success",
             });
           })
@@ -129,7 +138,11 @@ function MyFoods() {
                     >
                       <MdOutlineOpenInBrowser size={20} />
                     </button>
-                    <Link state={item} to='/myfoods/update' className="btn btn-ghost btn-sm">
+                    <Link
+                      state={item}
+                      to="/myfoods/update"
+                      className="btn btn-ghost btn-sm"
+                    >
                       <FaEdit size={20} />
                     </Link>
                     <button
