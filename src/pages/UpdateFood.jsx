@@ -6,9 +6,9 @@ import { useLocation, useNavigate } from "react-router";
 
 const UpdateFood = () => {
   const location = useLocation();
-    const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const foods = useSelector((state) => state.foods);
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   console.log(foods.data);
   const navigate = useNavigate();
   const {
@@ -53,18 +53,18 @@ const UpdateFood = () => {
           .put(`/updatefood/${_id}`, updatedFood)
           .then(() => {
             updatedFood._id = _id;
-            const filterFoods =foods?.data.filter(
-              (item) => item._id !== _id
-            );
+            const filterFoods = foods?.data.filter((item) => item._id !== _id);
             dispatch({
               type: UPDATE_FOOD,
-              payload: [updatedFood, ...filterFoods],
+              payload: [...filterFoods, updatedFood],
             });
             navigate("/myfoods");
             Swal.fire({
               title: "item updated!",
               text: "Your food item has been updated successfully.",
               icon: "success",
+              showConfirmButton: false,
+              timer: 3000,
             });
           })
           .catch((err) => {

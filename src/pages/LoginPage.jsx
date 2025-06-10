@@ -5,6 +5,7 @@ import { useSelector } from "../hooks/AppContext";
 
 function LoginPage() {
   const location = useLocation();
+  console.log(location);
   const user = useSelector((state) => state.user);
 
   const handleSignin = (e) => {
@@ -52,7 +53,7 @@ function LoginPage() {
         });
       });
   };
-if (user?.data)return <Navigate to={location.state || '/'}/>
+  if (user?.data) return <Navigate to={location.state || "/"} />;
   return (
     <section className="flex bg-base-300 mt-32 justify-center flex-col items-center h-[80vh]">
       <form onSubmit={handleSignin} className="fieldset rounded-box w-xs p-4">
@@ -125,7 +126,8 @@ if (user?.data)return <Navigate to={location.state || '/'}/>
           Login with Google
         </button>
 
-        <button onClick={()=>alert('this is not configured')}
+        <button
+          onClick={() => alert("this is not configured")}
           className="btn bg-black text-white border-black"
         >
           <svg

@@ -78,6 +78,8 @@ function MyFoods() {
               title: "Deleted!",
               text: "Your food item has been deleted.",
               icon: "success",
+              showConfirmButton: false,
+              timer: 3000,
             });
           })
           .catch((err) => {
@@ -114,7 +116,7 @@ function MyFoods() {
             </tr>
           </thead>
           <tbody>
-            {myFoods?.data?.map((item) => {
+            {[...myFoods.data].reverse()?.map((item) => {
               return (
                 <tr key={item._id}>
                   <td>
@@ -122,7 +124,7 @@ function MyFoods() {
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
                           <img
-                            src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+                            src={item.foodImage}
                             alt="Avatar Tailwind CSS Component"
                           />
                         </div>

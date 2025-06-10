@@ -9,7 +9,7 @@ function AllFoods() {
   const foods = useSelector((state) => state.foods);
   const filterFoods =
     foods.data.length &&
-    foods.data.filter((item) =>
+    [...foods.data].reverse().filter((item) =>
       item.foodName.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -69,6 +69,7 @@ function AllFoods() {
                 foodName={item.foodName}
                 price={item.price}
                 category={item.foodCategory}
+                foodImage={item.foodImage}
               />
             );
           })

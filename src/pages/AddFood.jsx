@@ -47,6 +47,8 @@ const AddFood = () => {
               title: "item added!",
               text: "Your food item has been added successfully.",
               icon: "success",
+              showConfirmButton:false,
+              timer: 3000,
             });
           })
           .catch((err) => {

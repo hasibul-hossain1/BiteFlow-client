@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  useSelector } from "../hooks/AppContext";
+import { useSelector } from "../hooks/AppContext";
 import { useNavigate, useParams } from "react-router";
 import { api } from "../lib/api";
 import Swal from "sweetalert2";
@@ -21,6 +21,7 @@ const FoodPurchase = () => {
       foodName: food.foodName,
       price: food.price,
       quantity,
+      foodImage:food.foodImage,
       buyerName: user?.data?.displayName,
       buyerEmail: user?.data?.email,
       buyingDate: Date.now(),
@@ -44,6 +45,8 @@ const FoodPurchase = () => {
                 title: "Success!",
                 text: "Your order has been placed.",
                 icon: "success",
+                showConfirmButton:false,
+                timer: 3000,
               });
               navigate("/myorders");
             })
@@ -122,9 +125,13 @@ const FoodPurchase = () => {
               className="input input-bordered w-full"
             />
           </div>
-
+          {food.quantity === 0 && <p className="text-red-500 font-bold text-center">item is not available</p>}
           {/* Submit */}
-          <button className="btn btn-primary w-full" type="submit">
+          <button
+            disabled={food.quantity ? false : true}
+            className="btn btn-primary w-full"
+            type="submit"
+          >
             Confirm Purchase
           </button>
         </form>

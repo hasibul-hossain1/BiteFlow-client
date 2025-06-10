@@ -9,7 +9,17 @@ import Swal from "sweetalert2";
 function Navbar() {
   const user=useSelector(state=>state.user)
   const handleLogout = () => {
-    signOUtUser()
+    Swal.fire({
+  title: "Are you sure?",
+  text: "You want to Logout!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes!"
+}).then((result) => {
+  if (result.isConfirmed) {
+  signOUtUser()
       .then(() => {
         Swal.fire({
           icon: "success",
@@ -27,6 +37,10 @@ function Navbar() {
           timer: 3000,
         });
       });
+   
+  }
+});
+  
   };
   const navigators = (
     <>

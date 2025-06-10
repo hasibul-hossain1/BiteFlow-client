@@ -2,16 +2,17 @@ import React from "react";
 import { Link } from "react-router";
 
 
-function Card({foodName,category,price,quantity,_id}) {
+function Card({foodName,category,price,quantity,_id,foodImage}) {
+  console.log(foodImage);
   return (
     <div
     
-    className="card transition-transform hover:-translate-y-3 duration-1000 bg-base-100 max-w-80 shadow-sm">
+    className="card transition-transform hover:-translate-y-3 duration-1000 bg-base-100 max-w-80 shadow-blue-300 shadow-sm">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          src={foodImage}
           alt="Shoes"
-          className="hover:scale-110 duration-500"
+          className="hover:scale-110 duration-500 h-52 w-96 object-cover object-center"
         />
       </figure>
       <div className="card-body">

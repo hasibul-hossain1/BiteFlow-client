@@ -2,37 +2,43 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { api } from "../lib/api";
-import {  useSelector } from "../hooks/AppContext";
+import { useSelector } from "../hooks/AppContext";
 import { motion } from "motion/react";
 import Loader from "../components/Common/Loader";
 import { MdDelete } from "react-icons/md";
 import moment from "moment/moment";
 import Swal from "sweetalert2";
-import ErrorPage from './ErrorPage'
+import ErrorPage from "./ErrorPage";
 function MyOrders() {
-    const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const [myOrders, setMyOrders] = useState({
     loading: true,
     error: null,
     data: [],
   });
   const userEmail = user?.data?.email;
-
   useEffect(() => {
-    setMyOrders(prev=>({...prev,loading:true}))
-    api.get(`/myorders?email=${userEmail}`).then((res) => {
-      setMyOrders(prev=>({
-        ...prev,
-        loading: false,
-        data: res.data,
-      }));
-    }).catch(err=>{
-      setMyOrders(prev=>({...prev,loading:false,error:err.message}))
-    })
+    setMyOrders((prev) => ({ ...prev, loading: true }));
+    api
+      .get(`/myorders?email=${userEmail}`)
+      .then((res) => {
+        setMyOrders((prev) => ({
+          ...prev,
+          loading: false,
+          data: res.data,
+        }));
+      })
+      .catch((err) => {
+        setMyOrders((prev) => ({
+          ...prev,
+          loading: false,
+          error: err.message,
+        }));
+      });
   }, [userEmail]);
-if (myOrders.error) {
-  return <ErrorPage message={myOrders.error}/>
-}
+  if (myOrders.error) {
+    return <ErrorPage message={myOrders.error} />;
+  }
   if (myOrders.loading) {
     return <Loader />;
   }
@@ -69,6 +75,8 @@ if (myOrders.error) {
               title: "Canceled!",
               text: "Your Order has been deleted.",
               icon: "success",
+              showConfirmButton: false,
+              timer: 3000,
             });
           })
           .catch((err) => {
@@ -104,11 +112,12 @@ if (myOrders.error) {
               <th>Price</th>
               <th>Food Owner</th>
               <th>Purchase Time</th>
+              <th>Quantity</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {myOrders?.data?.map((item) => {
+            {[...myOrders.data]?.reverse().map((item) => {
               return (
                 <tr key={item._id}>
                   <td>
@@ -116,7 +125,7 @@ if (myOrders.error) {
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
                           <img
-                            src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+                            src={item.foodImage}
                             alt="Avatar Tailwind CSS Component"
                           />
                         </div>
@@ -132,6 +141,7 @@ if (myOrders.error) {
                   <td>
                     {moment(item.buyingDate).format("Do MMMM YYYY, h:mm a")}
                   </td>
+                  <td className="text-center">{item.quantity}p</td>
                   <th>
                     <button
                       onClick={() => handleDelete(item._id)}

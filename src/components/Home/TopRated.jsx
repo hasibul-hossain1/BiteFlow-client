@@ -29,7 +29,7 @@ function TopRated() {
       >
         Top Rated Meals
       </motion.h3>
-      <div className="flex justify-center items-center gap-8 flex-wrap">
+      <div className="grid grid-cols-1 gap-8 justify-items-center mt-20 md:grid-cols-2 xl:grid-cols-3">
         {foods?.data?.map((e, i) => (
           <motion.div
             key={i}
@@ -39,7 +39,7 @@ function TopRated() {
             initial="hidden"
             whileInView="visible"
           >
-            <Card category={e.foodCategory} _id={e._id} foodName={e.foodName} price={e.price} quantity={e.quantity} key={e._id}/>
+            <Card category={e.foodCategory} foodImage={e.foodImage} _id={e._id} foodName={e.foodName} price={e.price} quantity={e.quantity} key={e._id}/>
           </motion.div>
         ))}
       </div>
