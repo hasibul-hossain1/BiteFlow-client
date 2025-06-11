@@ -1,4 +1,3 @@
-import React from "react";
 import ThemeSwitcher from "../Common/ThemeSwitcher";
 import { Link } from "react-router";
 import { useSelector } from "../../hooks/AppContext";

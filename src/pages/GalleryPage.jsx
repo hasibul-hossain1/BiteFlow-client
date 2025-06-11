@@ -46,7 +46,7 @@ const GalleryPage = () => {
   }, [inView, visibleCount, setAllImage]);
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0.2, y: 30 },
     visible: (i) => ({
       opacity: 1,
       y: 0,
@@ -63,7 +63,7 @@ const GalleryPage = () => {
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 0.6 }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         className="text-3xl md:text-4xl text-center font-bold mb-6"
       >
         Foods Gallery
@@ -71,10 +71,10 @@ const GalleryPage = () => {
       <div className="divider"></div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {...allImage.slice(0, visibleCount).map((src, index) => (
+        {allImage.slice(0, visibleCount).map((src, index) => (
           <motion.div
             key={index}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             variants={cardVariants}
             custom={index}
             initial="hidden"
