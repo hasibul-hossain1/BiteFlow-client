@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "../hooks/AppContext";
 import { DELETE_FOOD } from "../reducers/reducer";
+import ErrorPage from './ErrorPage'
 
 function MyFoods() {
   const navigate = useNavigate();

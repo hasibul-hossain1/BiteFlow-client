@@ -5,42 +5,42 @@ import { useSelector } from "../../hooks/AppContext";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { signOUtUser } from "../../../firebase/firebasePanel";
 import Swal from "sweetalert2";
+import { api } from "../../lib/api";
 
 function Navbar() {
-  const user=useSelector(state=>state.user)
+  const user = useSelector((state) => state.user);
   const handleLogout = () => {
     Swal.fire({
-  title: "Are you sure?",
-  text: "You want to Logout!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes!"
-}).then((result) => {
-  if (result.isConfirmed) {
-  signOUtUser()
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Logout Successfully",
-          showConfirmButton: false,
-          timer: 3000,
-        });
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: err?.message || "Something went wrong!",
-          showConfirmButton: false,
-          timer: 3000,
-        });
-      });
-   
-  }
-});
-  
+      title: "Are you sure?",
+      text: "You want to Logout!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api.post("/logout");
+        signOUtUser()
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Logout Successfully",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: err?.message || "Something went wrong!",
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          });
+      }
+    });
   };
   const navigators = (
     <>
@@ -51,7 +51,7 @@ function Navbar() {
         <Link to="/allfoods">All Foods</Link>
       </li>
       <li>
-        <Link to='/gallery'>Gallery</Link>
+        <Link to="/gallery">Gallery</Link>
       </li>
       {user?.data ? (
         <li className="block sm:hidden">
@@ -118,7 +118,10 @@ function Navbar() {
                   <div className="w-14 rounded-full">
                     <img
                       alt="Tailwind CSS Navbar component"
-                      src={user?.data?.photoURL || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                      src={
+                        user?.data?.photoURL ||
+                        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      }
                     />
                   </div>
                 </div>
@@ -127,15 +130,13 @@ function Navbar() {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <Link to='/myfoods'>
-                      My Foods
-                    </Link>
+                    <Link to="/myfoods">My Foods</Link>
                   </li>
                   <li>
-                    <Link to='/addfood'>Add Foods</Link>
+                    <Link to="/addfood">Add Foods</Link>
                   </li>
                   <li>
-                    <Link to='/myorders'>My Orders</Link>
+                    <Link to="/myorders">My Orders</Link>
                   </li>
                 </ul>
               </div>

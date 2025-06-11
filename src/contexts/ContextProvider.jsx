@@ -33,8 +33,14 @@ function ContextProvider({ children }) {
 
   useEffect(() => {
     dispatch({ type: FETCH_USER_START });
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth,async (user) => {
       if (user) {
+        const idToken=await user.getIdToken()
+        try {
+          api.post('/login',{idToken})
+        } catch (error) {
+         console.log("Error:",error);
+        }
         dispatch({ type: FETCH_USER_SUCCESS, payload: {...user} });
       }else{
         dispatch({ type: FETCH_USER_SUCCESS, payload:null });

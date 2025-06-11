@@ -5,7 +5,6 @@ import { useSelector } from "../hooks/AppContext";
 
 function LoginPage() {
   const location = useLocation();
-  console.log(location);
   const user = useSelector((state) => state.user);
 
   const handleSignin = (e) => {

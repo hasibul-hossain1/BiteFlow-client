@@ -9,7 +9,6 @@ const UpdateFood = () => {
   const user = useSelector((state) => state.user);
   const foods = useSelector((state) => state.foods);
   const dispatch = useDispatch();
-  console.log(foods.data);
   const navigate = useNavigate();
   const {
     _id,

@@ -3,7 +3,6 @@ import { Link } from "react-router";
 
 
 function Card({foodName,category,price,quantity,_id,foodImage}) {
-  console.log(foodImage);
   return (
     <div
     

@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import InfiniteLoader from "../components/Common/InfinteLoader";
+import { duration } from "moment/moment";
 
 const gallery = [
   "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg",
@@ -34,12 +35,12 @@ const GalleryPage = () => {
       timeout = setTimeout(() => {
         setAllImage((prev) => {
           if (visibleCount > prev.length - 7) {
-            return [...prev, ...gallery];
+            return [...prev, ...gallery.sort(() => Math.random() - 0.5)];
           }
           return prev;
         });
         setVisibleCount((prev) => prev + 6);
-      }, 4000);
+      }, 2000);
     }
     return () => clearTimeout(timeout);
   }, [inView, visibleCount, setAllImage]);
@@ -51,7 +52,7 @@ const GalleryPage = () => {
       y: 0,
       transition: {
         delay: i * 0.1,
-        duration: 0.1,
+        duration: 0.5
       },
     }),
   };
@@ -60,16 +61,17 @@ const GalleryPage = () => {
     <section className="pt-10 px-4 max-w-6xl mx-auto">
       <motion.h3
         initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         className="text-3xl md:text-4xl text-center font-bold mb-6"
       >
         Foods Gallery
       </motion.h3>
+      <div className="divider"></div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {allImage.slice(0, visibleCount).map((src, index) => (
+        {...allImage.slice(0, visibleCount).map((src, index) => (
           <motion.div
             key={index}
             viewport={{ once: false }}

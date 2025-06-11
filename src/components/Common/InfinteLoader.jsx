@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const InfiniteLoader = () => {
   return (
-    <div className="flex justify-center mt-20">
+    <div className="flex justify-center mt-40">
       <StyledWrapper>
         <div className="loader">
           <div className="circle" />
