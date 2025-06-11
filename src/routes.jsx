@@ -11,6 +11,7 @@ import AddFood from "./pages/AddFood";
 import MyOrders from "./pages/MyOrders";
 import UpdateFood from "./pages/UpdateFood";
 import PrivateRoute from "./components/Common/PrivateRoute";
+import GalleryPage from "./pages/GalleryPage";
 
 export const router = createBrowserRouter(
   [
@@ -57,6 +58,10 @@ export const router = createBrowserRouter(
         {
           path:'/myfoods/update',
           element:<PrivateRoute><UpdateFood/></PrivateRoute>
+        },
+        {
+          path:'/gallery',
+          Component:GalleryPage
         }
       ],
     },

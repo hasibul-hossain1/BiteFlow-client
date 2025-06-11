@@ -51,7 +51,7 @@ function Navbar() {
         <Link to="/allfoods">All Foods</Link>
       </li>
       <li>
-        <a>Gallery</a>
+        <Link to='/gallery'>Gallery</Link>
       </li>
       {user?.data ? (
         <li className="block sm:hidden">

@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { useSelector } from "../hooks/AppContext";
+import { useDispatch, useSelector } from "../hooks/AppContext";
 import { useNavigate, useParams } from "react-router";
 import { api } from "../lib/api";
 import Swal from "sweetalert2";
+import { UPDATE_FOOD } from "../reducers/reducer";
 
 const FoodPurchase = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const foods = useSelector((state) => state.foods);
+  const dispatch=useDispatch()
   const { id } = useParams();
   const food = foods?.data.find((item) => item._id === id);
 
@@ -15,6 +17,14 @@ const FoodPurchase = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (user.data.email===food.addedBy.email) {
+       Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "You can't buy this food because you added this!",
+            });
+      return
+    }
 
     const purchaseData = {
       foodId: food._id,
@@ -48,6 +58,16 @@ const FoodPurchase = () => {
                 showConfirmButton:false,
                 timer: 3000,
               });
+              const updateQuantity=foods?.data?.map((item)=>{
+                if (item._id!==id) {
+                  return item
+                }
+                return {
+                  ...item,quantity:item.quantity-quantity,purchaseCount:item.purchaseCount+quantity
+                }
+              })
+              dispatch({type:UPDATE_FOOD,payload:updateQuantity})
+
               navigate("/myorders");
             })
             .catch((error) => {

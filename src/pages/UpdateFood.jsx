@@ -21,10 +21,19 @@ const UpdateFood = () => {
     foodOrigin,
     price,
     description,
+    addedBy,
   } = location.state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (user.data.email !== addedBy.email) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You don't have rights to update this food!",
+      });
+      return;
+    }
     const form = e.target;
     const getData = new FormData(form);
     const formData = Object.fromEntries(getData.entries());
@@ -53,10 +62,19 @@ const UpdateFood = () => {
           .put(`/updatefood/${_id}`, updatedFood)
           .then(() => {
             updatedFood._id = _id;
-            const filterFoods = foods?.data.filter((item) => item._id !== _id);
+            const updatedFoods = foods?.data?.map((item) => {
+              if (item._id !== _id) {
+                return item;
+              }
+              return {
+                ...item,
+                ...updatedFood,
+              };
+            });
+
             dispatch({
               type: UPDATE_FOOD,
-              payload: [...filterFoods, updatedFood],
+              payload: updatedFoods,
             });
             navigate("/myfoods");
             Swal.fire({

@@ -38,6 +38,7 @@ function TopRated() {
             variants={cardVariants}
             custom={i}
             initial="hidden"
+            animate="visible"
             whileInView="visible"
           >
             <Card category={e.foodCategory} foodImage={e.foodImage} _id={e._id} foodName={e.foodName} price={e.price} quantity={e.quantity} key={e._id}/>

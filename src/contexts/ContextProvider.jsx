@@ -44,9 +44,6 @@ function ContextProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-  }, [state]);
-
   const value = {
     state,
     dispatch,

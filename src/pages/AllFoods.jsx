@@ -21,7 +21,7 @@ function AllFoods() {
       y: 0,
       transition: {
         delay: i * 0.2,
-        duration: 0.2,
+        duration: 0.5,
       },
     }),
   };
@@ -32,7 +32,7 @@ function AllFoods() {
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, amount:0.2 }}
         className="text-3xl md:text-4xl text-center font-bold mb-6"
       >
         Explore Our Full Menu
@@ -67,8 +67,6 @@ function AllFoods() {
             className="grow"
             placeholder="Search your favorite food"
           />
-          <kbd className="kbd kbd-sm">⌘</kbd>
-          <kbd className="kbd kbd-sm">K</kbd>
         </label>
       </div>
       <div className="grid grid-cols-1 gap-8 justify-items-center mt-20 md:grid-cols-2 xl:grid-cols-3">
@@ -81,6 +79,7 @@ function AllFoods() {
                 variants={cardVariants}
                 custom={i}
                 initial="hidden"
+                animate="visible"
                 whileInView="visible"
               >
                 <Card
