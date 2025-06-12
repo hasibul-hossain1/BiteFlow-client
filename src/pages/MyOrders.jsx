@@ -34,7 +34,6 @@ function MyOrders() {
         }));
       })
       .catch((err) => {
-        console.log(err);
         setMyOrders((prev) => ({
           ...prev,
           loading: false,
