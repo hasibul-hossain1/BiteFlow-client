@@ -12,7 +12,6 @@ function LoginPage() {
     const email = e.target.email.value;
     const password = e.target.password.value;
     signInUser(email, password)
-      .then((res) => res.json())
       .then(() => {
         Swal.fire({
           icon: "success",

@@ -2,15 +2,20 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { api } from "../lib/api";
-import { useSelector } from "../hooks/AppContext";
+import { useDispatch, useSelector } from "../hooks/AppContext";
 import { motion } from "motion/react";
 import Loader from "../components/Common/Loader";
 import { MdDelete } from "react-icons/md";
 import moment from "moment/moment";
 import Swal from "sweetalert2";
 import ErrorPage from "./ErrorPage";
+import { UPDATE_FOOD } from "../reducers/reducer";
+
+
 function MyOrders() {
   const user = useSelector((state) => state.user);
+  const allFoods = useSelector((state) => state.foods.data);
+  const dispatch=useDispatch()
   const [myOrders, setMyOrders] = useState({
     loading: true,
     error: null,
@@ -29,6 +34,7 @@ function MyOrders() {
         }));
       })
       .catch((err) => {
+        console.log(err);
         setMyOrders((prev) => ({
           ...prev,
           loading: false,
@@ -51,7 +57,8 @@ function MyOrders() {
       </div>
     );
   }
-  const handleDelete = (id) => {
+  const handleDelete = (deleteItem) => {
+    const {_id:id,foodId,quantity}=deleteItem
     Swal.fire({
       title: "Are you sure?",
       text: "You want to cancel this Order!",
@@ -63,7 +70,7 @@ function MyOrders() {
     }).then((result) => {
       if (result.isConfirmed) {
         api
-          .delete(`/myorders/${id}`)
+          .delete(`/myorders/${id}?foodId=${foodId}&quantity=${quantity}`)
           .then((res) => {
             if (res.data.deletedCount) {
               const removeItem = myOrders?.data.filter(
@@ -71,6 +78,15 @@ function MyOrders() {
               );
               setMyOrders({ ...myOrders, data: removeItem });
             }
+            const updateQuantity=allFoods.map((item)=>{
+              if (item._id!==foodId) {
+                return item
+              }
+              return {
+                ...item, quantity:item.quantity+quantity,purchaseCount:item.purchaseCount-quantity
+              }
+            })
+            dispatch({type:UPDATE_FOOD,payload:updateQuantity})
             Swal.fire({
               title: "Canceled!",
               text: "Your Order has been deleted.",
@@ -144,7 +160,7 @@ function MyOrders() {
                   <td className="text-center">{item.quantity}p</td>
                   <th>
                     <button
-                      onClick={() => handleDelete(item._id)}
+                      onClick={() => handleDelete(item)}
                       className="btn btn-ghost btn-xs"
                     >
                       <MdDelete size={20} />
