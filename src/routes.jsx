@@ -12,6 +12,7 @@ import MyOrders from "./pages/MyOrders";
 import UpdateFood from "./pages/UpdateFood";
 import PrivateRoute from "./components/Common/PrivateRoute";
 import GalleryPage from "./pages/GalleryPage";
+import NotFoundPage from "./pages/NotFound"
 
 export const router = createBrowserRouter(
   [
@@ -62,6 +63,10 @@ export const router = createBrowserRouter(
         {
           path:'/gallery',
           Component:GalleryPage
+        },
+        {
+          path:'/*',
+          Component:NotFoundPage
         }
       ],
     },
