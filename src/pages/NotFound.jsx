@@ -3,9 +3,6 @@ import { useEffect } from 'react'
 
 function NotFound() {
     const navigate =useNavigate()
-    useEffect(()=>{
-        document.title='404 not found page'
-    },[])
   return (
     <>
     <div className="grid pb-10 place-items-center bg-white px-6 lg:px-8">

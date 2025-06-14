@@ -5,6 +5,7 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import InfiniteLoader from "../components/Common/InfinteLoader";
 import { duration } from "moment/moment";
+import Pattern from "../components/Common/Pattern";
 
 const gallery = [
   "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg",
@@ -59,7 +60,8 @@ const GalleryPage = () => {
 
   return (
     <section className="pt-10 px-4 max-w-6xl mx-auto">
-      <motion.h3
+      <Pattern>
+        <motion.h3
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0}}
         transition={{ duration: 0.6 }}
@@ -68,6 +70,10 @@ const GalleryPage = () => {
       >
         Foods Gallery
       </motion.h3>
+       <p className="mt-5 text-center">
+        Explore our Food gallery
+      </p>
+      </Pattern>
       <div className="divider"></div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

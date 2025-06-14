@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { useSelector } from "../hooks/AppContext";
 import Card from "../components/Common/Card";
 import { useState } from "react";
+import Pattern from "../components/Common/Pattern";
 
 function AllFoods() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,20 +28,22 @@ function AllFoods() {
   };
 
   return (
-    <section className="mt-30">
-      <motion.h3
+    <section className="mt-30 max-w-6xl mx-auto">
+      <Pattern>
+        <motion.h3
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount:0.2 }}
         className="text-3xl md:text-4xl text-center font-bold mb-6"
       >
-        Explore Our Full Menu
+        All Foods
       </motion.h3>
       <p className="mt-5 text-center">
         From classic favorites to new delights — discover every delicious item
         we proudly serve.
       </p>
+      </Pattern>
       <div className="divider"></div>
       <div className="text-center mt-5">
         <label className="input border-2">
