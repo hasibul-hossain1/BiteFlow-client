@@ -17,12 +17,18 @@ function MyFoods() {
   const user = useSelector((state) => state.user);
   const allFoods = useSelector((state) => state.foods.data);
   const dispatch = useDispatch();
+
+
   const [myFoods, setMyFoods] = useState({
     loading: true,
     error: null,
     data: [],
   });
+
+
   const userEmail = user?.data?.email;
+
+  
 
   useEffect(() => {
     setMyFoods((prev) => ({ ...prev, loading: true }));
@@ -38,12 +44,14 @@ function MyFoods() {
         }));
       });
   }, [userEmail]);
+
+
   if (myFoods.error) {
     return <ErrorPage message={myFoods.error} />;
   }
-  if (myFoods.loading) {
-    return <Loader />;
-  }
+  if (myFoods.loading)return <Loader />;
+
+
   if (!myFoods?.data?.length) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
@@ -53,6 +61,8 @@ function MyFoods() {
       </div>
     );
   }
+
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",

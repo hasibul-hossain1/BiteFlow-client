@@ -19,7 +19,11 @@ function Navbar() {
       confirmButtonText: "Yes!",
     }).then((result) => {
       if (result.isConfirmed) {
+        
+        
         api.post("/logout");
+
+        
         signOUtUser()
           .then(() => {
             Swal.fire({
