@@ -1,21 +1,21 @@
- 🍽️ Flowbite - Restaurant Food Item Management Web App
+# 🍽️ Flowbite - Restaurant Food Item Management Web App (Frontend)
 
-**Flowbite** is a full-stack restaurant web application that allows users to browse, buy, add, update, and delete food items. It's designed to provide a seamless customer experience while giving restaurant admins powerful tools to manage their offerings.
+**Flowbite** is a modern restaurant management web application. This is the **frontend**, built with React, Tailwind CSS, and other modern libraries. Customers can browse and purchase food items, while admins can manage inventory and menu items through a responsive, easy-to-use UI.
 
 ---
-## Client Repo: https://github.com/Programming-Hero-Web-Course4/b11a11-client-side-ShantoD0
 
-## Server Repo: https://github.com/Programming-Hero-Web-Course4/b11a11-server-side-ShantoD0
+## 🌐 Live Website
 
+🔗 [https://flow-bite.netlify.app](https://flow-bite.netlify.app)
 
-## Live Link: https://flow-bite.netlify.app/
+---
 
-## 🌟 Features
+## ✨ Features
 
 ### 👤 User Features
 - 🔍 Browse food items with images and descriptions
 - 🛒 Add items to a shopping cart and proceed to checkout
-- 📱 Responsive layout optimized for all devices
+- 📱 Mobile-first responsive design
 
 ### 🔧 Admin Features
 - ➕ Add new food items with details
@@ -25,19 +25,67 @@
 
 ---
 
-## ⚙️ Tech Stack
 
-### 🔹 Frontend
-- React 19 with Vite
-- Tailwind CSS 4.1.8 with DaisyUI 5.0.43
-- React Router 7.6.2
-- Axios for API communication
-- SweetAlert2 for stylish alerts
-- Swiper, Moment.js, React Icons, and more
 
-### 🔸 Backend
-- Node.js with Express 5.1.0
-- MongoDB (native driver)
-- Firebase Admin SDK (for secure admin features)
-- dotenv, cors, cookie-parser
+## 🚀 Getting Started
 
+### Prerequisites
+
+- Node.js
+- MongoDB
+- Firebase project with Google Auth enabled
+
+### Configure Firebase Create a .env file in the root directory:
+```
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+
+```
+
+### Install dependencies
+```
+pnpm install
+```
+
+### Run server
+```
+pnpm dev
+```
+
+📖 How to Use Sign Up / Log In
+
+Use Email & Password or Google Sign-In
+
+Explore Events
+
+Browse featured events or search by category
+
+Book Tickets
+
+Select seats & confirm booking (with real-time validation)
+
+Manage Profile
+
+Update your details in the secure dashboard
+
+🤝 Want to Contribute? We welcome contributions! Here's how:
+
+Fork the repository
+
+Create a new feature branch
+
+Commit your changes
+
+Push to the branch
+
+Open a Pull Request
+
+📜 License This project is currently unlicensed. For usage rights, please contact the author.
+
+📬 Contact Maintainer: https://github.com/hasibul-hossain1 💡 Issues? Open a GitHub issue or reach out!
+
+Why Choose Event Explorer? ✔ Fast & Responsive (Vite + React) ✔ Secure Authentication (Firebase) ✔ Beautiful UI (Tailwind + DaisyUI) ✔
