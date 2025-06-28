@@ -13,9 +13,9 @@
 
 ## 📸 Screenshots
 
-| Home Page | All Groups | Group Details |
+| Home Page | All Foods | Food Details |
 |-----------|------------|----------------|
-| ![Home](https://raw.githubusercontent.com/hasibul-hossain1/BiteFlow-client/refs/heads/main/public/home.png) | ![All Groups](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/allgroup.png) | ![Details](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/group.png) |
+| ![Home](https://raw.githubusercontent.com/hasibul-hossain1/BiteFlow-client/refs/heads/main/public/home.png) | ![All Groups](https://raw.githubusercontent.com/hasibul-hossain1/BiteFlow-client/refs/heads/main/public/allfoods.png) | ![Details](https://raw.githubusercontent.com/hasibul-hossain1/BiteFlow-client/refs/heads/main/public/details.png) |
 
 ---
 
