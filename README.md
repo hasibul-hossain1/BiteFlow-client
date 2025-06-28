@@ -15,7 +15,7 @@
 
 | Home Page | All Groups | Group Details |
 |-----------|------------|----------------|
-| ![Home](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/home.png) | ![All Groups](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/allgroup.png) | ![Details](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/group.png) |
+| ![Home]([https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/home.png](https://github.com/hasibul-hossain1/BiteFlow-client/blob/main/public/home.png)) | ![All Groups](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/allgroup.png) | ![Details](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/group.png) |
 
 ---
 
