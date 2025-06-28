@@ -9,6 +9,15 @@
 🔗 [https://flow-bite.netlify.app](https://flow-bite.netlify.app)
 
 ---
+---
+
+## 📸 Screenshots
+
+| Home Page | All Groups | Group Details |
+|-----------|------------|----------------|
+| ![Home](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/home.png) | ![All Groups](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/allgroup.png) | ![Details](https://github.com/hasibul-hossain1/Hobby-Hub-client/blob/main/public/group.png) |
+
+---
 
 ## ✨ Features
 
