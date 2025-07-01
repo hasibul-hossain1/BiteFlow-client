@@ -15,13 +15,18 @@ function AllFoods() {
     ...new Set(foods?.data?.map((food) => food.foodCategory)),
   ];
 
+  console.log("Foods Data:", foods.data);
   let filterFoods =
     foods.data.length &&
     [...foods.data]
       .reverse()
-      .filter((item) =>
-        item.foodName.toLowerCase().includes(searchTerm.toLowerCase()) &&  filter?item.foodCategory===filter:true
-      )
+      .filter((item) => {
+        const matchesSearch = item.foodName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+        const matchesFilter = filter ? item.foodCategory === filter : true;
+        return matchesSearch && matchesFilter;
+      })
       .sort((a, b) => {
         if (sort === "name") {
           return a.foodName.localeCompare(b.foodName);
@@ -30,7 +35,6 @@ function AllFoods() {
         }
         return 0;
       });
-
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -67,18 +71,22 @@ function AllFoods() {
           <span>Filter Category</span>
           <select
             defaultValue="All"
-            onChange={e=>setFilter(e.target.value)}
+            onChange={(e) => setFilter(e.target.value)}
             className="select rounded-xs border-2"
           >
             <option value="">All</option>
-            {foodCategories?.map((item,index)=><option key={index} value={item}>{item}</option>)}
+            {foodCategories?.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
           </select>
         </div>
         <div className="">
           <span>Sort By</span>
           <select
             defaultValue=""
-            onChange={e=>setSort(e.target.value)}
+            onChange={(e) => setSort(e.target.value)}
             className="select rounded-xs border-2"
           >
             <option value="">None</option>
