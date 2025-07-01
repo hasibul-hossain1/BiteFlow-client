@@ -1,5 +1,5 @@
 import ThemeSwitcher from "../Common/ThemeSwitcher";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { useSelector } from "../../hooks/AppContext";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { signOUtUser } from "../../../firebase/firebasePanel";
@@ -19,11 +19,8 @@ function Navbar() {
       confirmButtonText: "Yes!",
     }).then((result) => {
       if (result.isConfirmed) {
-        
-        
         api.post("/logout");
 
-        
         signOUtUser()
           .then(() => {
             Swal.fire({
@@ -48,20 +45,32 @@ function Navbar() {
   const navigators = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink className={({isActive})=>isActive?"text-primary":''} to="/">Home</NavLink>
       </li>
       <li>
-        <Link to="/allfoods">All Foods</Link>
+        <NavLink className={({isActive})=>isActive?"text-primary":''} to="/allfoods">All Foods</NavLink>
       </li>
       <li>
-        <Link to="/gallery">Gallery</Link>
+        <NavLink className={({isActive})=>isActive?"text-primary":''} to="/gallery">Gallery</NavLink>
       </li>
+
       {user?.data ? (
-        <li className="block sm:hidden">
-          <button onClick={handleLogout} to="/signup">
-            Logout
-          </button>
-        </li>
+        <>
+          <li>
+            <NavLink className={({isActive})=>isActive?"text-primary":''} to="/myfoods">My Foods</NavLink>
+          </li>
+          <li>
+            <NavLink className={({isActive})=>isActive?"text-primary":''} to="/addfood">Add Foods</NavLink>
+          </li>
+          <li>
+            <NavLink className={({isActive})=>isActive?"text-primary":''} to="/myorders">My Orders</NavLink>
+          </li>
+          <li className="block sm:hidden">
+            <button onClick={handleLogout} to="/signup">
+              Logout
+            </button>
+          </li>
+        </>
       ) : (
         <>
           <li className="block sm:hidden">
@@ -113,14 +122,10 @@ function Navbar() {
           {user?.data ? (
             <div className="flex gap-2">
               <div className="dropdown dropdown-end">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost w-14 btn-circle avatar"
-                >
+                <div className="btn btn-ghost btn-circle w-14 avatar">
                   <div className="w-14 rounded-full">
                     <img
-                      alt="Tailwind CSS Navbar component"
+                      alt="user image"
                       src={
                         user?.data?.photoURL ||
                         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
@@ -128,20 +133,6 @@ function Navbar() {
                     />
                   </div>
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-                >
-                  <li>
-                    <Link to="/myfoods">My Foods</Link>
-                  </li>
-                  <li>
-                    <Link to="/addfood">Add Foods</Link>
-                  </li>
-                  <li>
-                    <Link to="/myorders">My Orders</Link>
-                  </li>
-                </ul>
               </div>
               <button
                 onClick={handleLogout}

@@ -38,14 +38,9 @@ export default function Carousel() {
           <SwiperSlide key={index}>
             <img
               src={img}
-              className="md:max-h-[80vh] object-contain object-center w-full"
+              className="md:max-h-[80vh] object-cover object-center w-full"
               alt=""
             />
-            {index === 0 && (
-              <Link to='/allfoods' className="btn btn-primary absolute top-[70%] left-[40%] hidden md:flex z-10">
-                Explore More
-              </Link>
-            )}
           </SwiperSlide>
         ))}
       </Swiper>

@@ -8,10 +8,12 @@ function Home() {
   return (
     <div>
      <Carousel/>
-     <TopRated/>
+   <div className="container mx-auto">
+      <TopRated/>
      <BenefitsSection/>
      <FollowSocial/>
      <GetInTouch/>
+   </div>
     </div>
   )
 }

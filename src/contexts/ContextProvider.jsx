@@ -12,19 +12,18 @@ import {
 import { api } from "../lib/api";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
-
+import Swal from "sweetalert2";
 
 function ContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  
   useEffect(() => {
     dispatch({ type: FETCH_FOODS_START });
     api
       .get("/foods")
-      .then((res) =>
-        dispatch({ type: FETCH_FOODS_SUCCESS, payload: res.data })
-      )
+      .then((res) => {
+        dispatch({ type: FETCH_FOODS_SUCCESS, payload: res.data });
+      })
       .catch((err) =>
         dispatch({
           type: FETCH_FOODS_ERROR,
@@ -35,17 +34,19 @@ function ContextProvider({ children }) {
 
   useEffect(() => {
     dispatch({ type: FETCH_USER_START });
-    const unsubscribe = onAuthStateChanged(auth,async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const idToken=await user.getIdToken()
+        const idToken = await user.getIdToken();
         try {
-          api.post('/login',{idToken})
+          api.post("/login", { idToken });
         } catch (error) {
-         console.log("Error:",error);
+          Swal.fire({ icon: error,
+            text:error?.message || "Unexpected Error"
+           });
         }
-        dispatch({ type: FETCH_USER_SUCCESS, payload: {...user} });
-      }else{
-        dispatch({ type: FETCH_USER_SUCCESS, payload:null });
+        dispatch({ type: FETCH_USER_SUCCESS, payload: { ...user } });
+      } else {
+        dispatch({ type: FETCH_USER_SUCCESS, payload: null });
       }
     });
 
@@ -59,6 +60,5 @@ function ContextProvider({ children }) {
 
   return <AppContext value={value}>{children}</AppContext>;
 }
-
 
 export default ContextProvider;
