@@ -9,6 +9,15 @@
 🔗 [https://flow-bite.netlify.app](https://flow-bite.netlify.app)
 
 ---
+---
+
+## 📸 Screenshots
+
+| Home Page | All Foods | Food Details |
+|-----------|------------|----------------|
+| ![Home](https://raw.githubusercontent.com/hasibul-hossain1/BiteFlow-client/refs/heads/main/public/home.png) | ![All Groups](https://raw.githubusercontent.com/hasibul-hossain1/BiteFlow-client/refs/heads/main/public/allfoods.png) | ![Details](https://raw.githubusercontent.com/hasibul-hossain1/BiteFlow-client/refs/heads/main/public/details.png) |
+
+---
 
 ## ✨ Features
 
