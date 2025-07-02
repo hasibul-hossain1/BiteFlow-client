@@ -24,7 +24,9 @@ function App() {
     <>
       <main>
         <Navbar />
+        <div className="min-h-[80vh]">
         <Outlet />
+        </div>
       </main>
       <Footer />
     </>
