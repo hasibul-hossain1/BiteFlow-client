@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const  api=axios.create({
-    baseURL:'http://localhost:2020/',
+    baseURL:'https://flowbite-ochre.vercel.app',
     withCredentials:true
 })
