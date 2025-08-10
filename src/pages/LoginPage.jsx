@@ -1,5 +1,5 @@
 import { Link, Navigate, useLocation } from "react-router";
-import { createUserWithGoogle, signInUser } from "../../firebase/firebasePanel";
+import { createUserWithGithub, createUserWithGoogle, signInUser } from "../../firebase/firebasePanel";
 import Lottie from "lottie-react";
 import foodLogin from "../assets/lotties/food-login.json";
 import Swal from "sweetalert2";
@@ -53,6 +53,26 @@ function LoginPage() {
         });
       });
   };
+
+  const handleGithubLogin=()=>{
+    createUserWithGithub().then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Login Successfully",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err?.message || "Something went wrong!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      });
+  }
   if (user?.data) return <Navigate to={location.state || "/"} />;
   return (
     <section className="bg-base-300">
@@ -140,7 +160,7 @@ function LoginPage() {
                   </button>
 
                   <button
-                    onClick={() => alert("this is not configured")}
+                    onClick={handleGithubLogin}
                     className="btn bg-black text-white border-black flex-1"
                   >
                     <svg
