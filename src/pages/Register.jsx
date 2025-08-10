@@ -1,9 +1,12 @@
-import { Link, Navigate } from "react-router";
+import { Link, Navigate, useLocation } from "react-router";
 import { createUser, updateProfileUser } from "../../firebase/firebasePanel";
 import Swal from "sweetalert2";
 import { useSelector } from "../hooks/AppContext";
+import Lottie from "lottie-react";
+import foodRegister from "../assets/lotties/food-register.json";
 
 function SignUpPage() {
+  const location = useLocation();
   const user = useSelector((state) => state.user);
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
@@ -47,54 +50,78 @@ function SignUpPage() {
   if (user?.data) return <Navigate to={location.state || "/"} />;
 
   return (
-    <section className="flex mt-32 bg-base-200 justify-center flex-col items-center h-[80vh]">
-      <form onSubmit={handleRegister} className="fieldset rounded-box w-xs p-4">
-        <legend className="fieldset-legend text-4xl">SignUp</legend>
+    <section className="bg-base-200">
+      <div className="container mx-auto px-4 pt-28 pb-16">
+        <div className="min-h-[60vh] grid md:grid-cols-2 items-center gap-12">
+          {/* Left: Animation */}
+          <div className="flex justify-center shrink-0">
+            <Lottie animationData={foodRegister} loop autoplay className="size-64 md:size-80" />
+          </div>
 
-        <label className="label text-2xl">Name</label>
-        <input
-          type="text"
-          name="name"
-          className="input"
-          placeholder="Name"
-          required
-        />
+          {/* Right: Form Card */}
+          <div className="w-full max-w-md mx-auto">
+            <div className="rounded-2xl border border-base-300 bg-base-100/90 shadow-lg">
+              <div className="p-6">
+                <h2 className="text-3xl font-bold mb-4 text-center">Sign Up</h2>
+                <form onSubmit={handleRegister} className="space-y-3">
+                  <div>
+                    <label className="label text-base">Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      className="input input-bordered w-full border-2 border-base-300 focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                      placeholder="Name"
+                      required
+                    />
+                  </div>
 
-        <label className="label text-2xl">Photo Url</label>
-        <input
-          type="text"
-          name="photoUrl"
-          className="input"
-          placeholder="Photo Url"
-          required
-        />
+                  <div>
+                    <label className="label text-base">Photo URL</label>
+                    <input
+                      type="text"
+                      name="photoUrl"
+                      className="input input-bordered w-full border-2 border-base-300 focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                      placeholder="Photo URL"
+                      required
+                    />
+                  </div>
 
-        <label className="label text-2xl">Email</label>
-        <input
-          type="email"
-          name="email"
-          className="input"
-          placeholder="Email"
-          required
-        />
+                  <div>
+                    <label className="label text-base">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      className="input input-bordered w-full border-2 border-base-300 focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                      placeholder="Email"
+                      required
+                    />
+                  </div>
 
-        <label className="label text-2xl">Password</label>
-        <input
-          type="password"
-          name="password"
-          className="input"
-          placeholder="Password"
-          required
-        />
+                  <div>
+                    <label className="label text-base">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      className="input input-bordered w-full border-2 border-base-300 focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                      placeholder="Password"
+                      required
+                    />
+                  </div>
 
-        <button className="btn btn-neutral mt-4">Register</button>
-        <h4 className="text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="hover:text-blue-500">
-            Log in
-          </Link>
-        </h4>
-      </form>
+                  <button className="btn btn-primary w-full mt-1">Register</button>
+                </form>
+
+                <p className="text-sm text-center mt-4">
+                  Already have an account?{" "}
+                  <Link to="/login" className="hover:text-blue-500">
+                    Log in
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

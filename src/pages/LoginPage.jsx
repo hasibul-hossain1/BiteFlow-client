@@ -1,5 +1,7 @@
 import { Link, Navigate, useLocation } from "react-router";
 import { createUserWithGoogle, signInUser } from "../../firebase/firebasePanel";
+import Lottie from "lottie-react";
+import foodLogin from "../assets/lotties/food-login.json";
 import Swal from "sweetalert2";
 import { useSelector } from "../hooks/AppContext";
 
@@ -53,95 +55,124 @@ function LoginPage() {
   };
   if (user?.data) return <Navigate to={location.state || "/"} />;
   return (
-    <section className="flex bg-base-300 mt-32 justify-center flex-col items-center h-[80vh]">
-      <form onSubmit={handleSignin} className="fieldset rounded-box w-xs p-4">
-        <legend className="fieldset-legend text-4xl">Login</legend>
+    <section className="bg-base-300">
+      <div className="container mx-auto px-4 pt-28 pb-16">
+        <div className="min-h-[60vh] grid md:grid-cols-2 items-center gap-12">
+          {/* Left: Animation */}
+          <div className="flex justify-center shrink-0">
+            <Lottie animationData={foodLogin} loop autoplay className="size-64 md:size-80" />
+          </div>
 
-        <label className="label text-2xl">Email</label>
-        <input
-          type="email"
-          name="email"
-          className="input"
-          placeholder="Email"
-        />
+          {/* Right: Form Card */}
+          <div className="w-full max-w-md mx-auto">
+            <div className="rounded-2xl border border-base-300 bg-base-100/90 shadow-lg">
+              <div className="p-6">
+                <h2 className="text-3xl font-bold mb-4 text-center">Login</h2>
+                <form onSubmit={handleSignin} className="space-y-3">
+                  <div>
+                    <label className="label text-base">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      className="input input-bordered w-full border-2 border-base-300 focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                      placeholder="Email"
+                      required
+                    />
+                  </div>
 
-        <label className="label text-2xl">Password</label>
-        <input
-          type="password"
-          name="password"
-          className="input"
-          placeholder="Password"
-        />
-        <button type="button" className="hover:underline text-left text-sm">
-          Forget Password?
-        </button>
-        <button type="submit" className="btn btn-neutral mt-4">
-          Login
-        </button>
-        <h4 className="text-sm">
-          Don't have an account?{" "}
-          <Link
-            state={location?.state}
-            to="/signup"
-            className="hover:text-blue-500"
-          >
-            Sign up
-          </Link>
-        </h4>
-      </form>
-      <div className="mt-20 flex gap-8 flex-col lg:flex-row">
-        <button
-          onClick={handleGoogleLogin}
-          className="btn bg-white text-black border-[#e5e5e5]"
-        >
-          <svg
-            aria-label="Google logo"
-            width="16"
-            height="16"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-          >
-            <g>
-              <path d="m0 0H512V512H0" fill="#fff"></path>
-              <path
-                fill="#34a853"
-                d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-              ></path>
-              <path
-                fill="#4285f4"
-                d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-              ></path>
-              <path
-                fill="#fbbc02"
-                d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-              ></path>
-              <path
-                fill="#ea4335"
-                d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-              ></path>
-            </g>
-          </svg>
-          Login with Google
-        </button>
+                  <div>
+                    <label className="label text-base">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      className="input input-bordered w-full border-2 border-base-300 focus:border-primary focus:ring-2 focus:ring-primary/40 focus:outline-none"
+                      placeholder="Password"
+                      required
+                    />
+                  </div>
 
-        <button
-          onClick={() => alert("this is not configured")}
-          className="btn bg-black text-white border-black"
-        >
-          <svg
-            aria-label="GitHub logo"
-            width="16"
-            height="16"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="white"
-              d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"
-            ></path>
-          </svg>
-          Login with GitHub
-        </button>
+                  <div className="flex items-center justify-between">
+                    <button type="button" className="hover:underline text-sm">
+                      Forget Password?
+                    </button>
+                  </div>
+
+                  <button type="submit" className="btn btn-primary w-full mt-1">
+                    Login
+                  </button>
+                </form>
+
+                <div className="divider my-5">or</div>
+
+                <div className="flex gap-3 flex-col sm:flex-row">
+                  <button
+                    onClick={handleGoogleLogin}
+                    className="btn bg-white text-black border-[#e5e5e5] flex-1"
+                  >
+                    <svg
+                      aria-label="Google logo"
+                      width="16"
+                      height="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                    >
+                      <g>
+                        <path d="m0 0H512V512H0" fill="#fff"></path>
+                        <path
+                          fill="#34a853"
+                          d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
+                        ></path>
+                        <path
+                          fill="#4285f4"
+                          d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
+                        ></path>
+                        <path
+                          fill="#fbbc02"
+                          d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
+                        ></path>
+                        <path
+                          fill="#ea4335"
+                          d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
+                        ></path>
+                      </g>
+                    </svg>
+                    Google
+                  </button>
+
+                  <button
+                    onClick={() => alert("this is not configured")}
+                    className="btn bg-black text-white border-black flex-1"
+                  >
+                    <svg
+                      aria-label="GitHub logo"
+                      width="16"
+                      height="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="white"
+                        d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"
+                      ></path>
+                    </svg>
+                    GitHub
+                  </button>
+                </div>
+
+                <p className="text-sm text-center mt-4">
+                  Don't have an account?{" "}
+                  <Link
+                    state={location?.state}
+                    to="/signup"
+                    className="hover:text-blue-500"
+                  >
+                    Sign up
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
