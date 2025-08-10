@@ -4,6 +4,8 @@ import { api } from "../lib/api";
 import { ADD_NEW_FOOD } from "../reducers/reducer";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import Lottie from "lottie-react";
+import foodAdd from "../assets/lotties/food-add.json";
 
 const AddFood = () => {
   const user = useSelector((state) => state.user);
@@ -65,13 +67,22 @@ const AddFood = () => {
   };
 
   return (
-    <section className="container mx-auto px-4 py-10">
-      <div className="max-w-2xl mx-auto rounded-2xl border border-base-300 bg-base-100/70 shadow-xl ring-1 ring-base-300/40 overflow-hidden">
-        <div className="px-6 py-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-b border-base-300/60">
-          <h2 className="text-3xl font-bold text-center">Create Food Item</h2>
-          <p className="text-center text-base-content/70 mt-1">Add a new dish to your catalog with rich details.</p>
-        </div>
-        <form onSubmit={handleSubmit} className="p-6 grid gap-5 md:grid-cols-2">
+    <section>
+      <div className="container mx-auto px-4 pt-28 pb-16">
+        <div className="min-h-[60vh] grid md:grid-cols-2 items-center gap-12">
+          {/* Left: Animation (like Login page) */}
+          <div className="flex justify-center shrink-0">
+            <Lottie animationData={foodAdd} loop autoplay className="size-64 md:size-80" />
+          </div>
+
+          {/* Right: Form Card */}
+          <div className="w-full max-w-xl mx-auto">
+            <div className="rounded-2xl border border-base-300 shadow-xl ring-1 ring-base-300/40 overflow-hidden">
+              <div className="px-6 py-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-b border-base-300/60">
+                <h2 className="text-3xl font-bold text-center">Create Food Item</h2>
+                <p className="text-center text-base-content/70 mt-1">Add a new dish to your catalog with rich details.</p>
+              </div>
+              <form onSubmit={handleSubmit} className="p-6 grid gap-5 md:grid-cols-2">
           {/* Food Name */}
           <div className="form-control md:col-span-2">
             <label className="label"><span className="label-text font-semibold">Food Name</span></label>
@@ -172,6 +183,9 @@ const AddFood = () => {
             </button>
           </div>
         </form>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
