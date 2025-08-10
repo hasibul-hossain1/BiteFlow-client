@@ -115,61 +115,71 @@ function MyFoods() {
         Your Added Foods
       </motion.h3>
       <div className="divider"></div>
-      <div className="overflow-x-auto max-w-5xl mx-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Food Image</th>
-              <th>Food Name</th>
-              <th>Price</th>
-              <th className="px-15">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...myFoods.data].reverse()?.map((item) => {
-              return (
-                <tr key={item._id}>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          <img
-                            src={item.foodImage}
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>{item.foodName}</td>
-                  <td>{item.price}$</td>
-                  <th className="text-nowrap">
-                    <button
-                      onClick={() => navigate(`/details/${item._id}`)}
-                      className="btn btn-ghost btn-sm"
-                    >
-                      <MdOutlineOpenInBrowser size={20} />
-                    </button>
-                    <Link
-                      state={item}
-                      to="/myfoods/update"
-                      className="btn btn-ghost btn-sm"
-                    >
-                      <FaEdit size={20} />
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="btn btn-ghost btn-sm"
-                    >
-                      <MdDelete size={20} />
-                    </button>
-                  </th>
+      <div className="max-w-6xl mx-auto">
+        <div className="rounded-xl border border-base-300 bg-base-100/60 shadow-xl overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              {/* head */}
+              <thead className="sticky top-0 bg-gradient-to-r from-primary to-secondary text-primary-content">
+                <tr>
+                  <th className="font-semibold tracking-wide">Food Image</th>
+                  <th className="font-semibold tracking-wide">Food Name</th>
+                  <th className="font-semibold tracking-wide">Price</th>
+                  <th className="font-semibold tracking-wide">Actions</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {[...myFoods.data].reverse()?.map((item) => {
+                  return (
+                    <tr key={item._id} className="hover:bg-base-200/60 transition-colors">
+                      <td>
+                        <div className="flex items-center gap-3">
+                          <div className="avatar">
+                            <div className="mask mask-squircle h-12 w-12">
+                              <img
+                                src={item.foodImage}
+                                alt={item.foodName}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="font-medium text-base-content/90">{item.foodName}</td>
+                      <td className="font-semibold text-success">${item.price}</td>
+                      <th className="text-nowrap">
+                        <button
+                          onClick={() => navigate(`/details/${item._id}`)}
+                          className="btn btn-ghost btn-sm"
+                          aria-label="View details"
+                          title="View details"
+                        >
+                          <MdOutlineOpenInBrowser size={20} />
+                        </button>
+                        <Link
+                          state={item}
+                          to="/myfoods/update"
+                          className="btn btn-ghost btn-sm"
+                          aria-label="Edit"
+                          title="Edit"
+                        >
+                          <FaEdit size={20} />
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(item._id)}
+                          className="btn btn-ghost btn-sm"
+                          aria-label="Delete"
+                          title="Delete"
+                        >
+                          <MdDelete size={20} />
+                        </button>
+                      </th>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
   );
