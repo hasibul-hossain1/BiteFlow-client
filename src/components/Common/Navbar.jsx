@@ -53,6 +53,9 @@ function Navbar() {
       <li>
         <NavLink className={({isActive})=>isActive?"text-primary":''} to="/gallery">Gallery</NavLink>
       </li>
+      <li>
+        <NavLink className={({isActive})=>isActive?"text-primary":''} to="/about">About</NavLink>
+      </li>
 
       {user?.data ? (
         <>
