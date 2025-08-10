@@ -117,59 +117,65 @@ function MyOrders() {
         Your Purchased Foods
       </motion.h3>
       <div className="divider"></div>
-      <div className="overflow-x-auto max-w-5xl mx-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Food Image</th>
-              <th>Food Name</th>
-              <th>Price</th>
-              <th>Food Owner</th>
-              <th>Purchase Time</th>
-              <th>Quantity</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...myOrders.data]?.reverse().map((item) => {
-              return (
-                <tr key={item._id}>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
-                          <img
-                            src={item.foodImage}
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>{item.foodName}</td>
-                  <td>{item.price}$</td>
-                  <td>
-                    {item.buyerName}
-                    <br />({item.buyerEmail})
-                  </td>
-                  <td>
-                    {moment(item.buyingDate).format("Do MMMM YYYY, h:mm a")}
-                  </td>
-                  <td className="text-center">{item.quantity}p</td>
-                  <th>
-                    <button
-                      onClick={() => handleDelete(item)}
-                      className="btn btn-ghost btn-xs"
-                    >
-                      <MdDelete size={20} />
-                    </button>
-                  </th>
+      <div className="max-w-6xl mx-auto">
+        <div className="rounded-xl border border-base-300 bg-base-100/60 shadow-xl overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              {/* head */}
+              <thead className="sticky top-0 bg-gradient-to-r from-primary to-secondary text-primary-content">
+                <tr>
+                  <th className="font-semibold tracking-wide">Food Image</th>
+                  <th className="font-semibold tracking-wide">Food Name</th>
+                  <th className="font-semibold tracking-wide">Price</th>
+                  <th className="font-semibold tracking-wide">Food Owner</th>
+                  <th className="font-semibold tracking-wide">Purchase Time</th>
+                  <th className="font-semibold tracking-wide">Quantity</th>
+                  <th className="font-semibold tracking-wide">Actions</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {[...myOrders.data]?.reverse().map((item) => {
+                  return (
+                    <tr key={item._id} className="hover:bg-base-200/60 transition-colors">
+                      <td>
+                        <div className="flex items-center gap-3">
+                          <div className="avatar">
+                            <div className="mask mask-squircle h-12 w-12">
+                              <img
+                                src={item.foodImage}
+                                alt={item.foodName}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="font-medium text-base-content/90">{item.foodName}</td>
+                      <td className="font-semibold text-success">${item.price}</td>
+                      <td>
+                        {item.buyerName}
+                        <br />({item.buyerEmail})
+                      </td>
+                      <td>
+                        {moment(item.buyingDate).format("Do MMMM YYYY, h:mm a")}
+                      </td>
+                      <td className="text-center">{item.quantity}p</td>
+                      <th>
+                        <button
+                          onClick={() => handleDelete(item)}
+                          className="btn btn-ghost btn-sm"
+                          aria-label="Cancel order"
+                          title="Cancel order"
+                        >
+                          <MdDelete size={20} />
+                        </button>
+                      </th>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
   );
